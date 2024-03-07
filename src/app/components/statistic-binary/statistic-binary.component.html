@@ -1,1 +1,36 @@
-<p>statistic-binary works!</p>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Activities Managament  </title>
+</head>
+<body>
+  <div class="container">
+    <div class="content">
+      <div class="questions-container" *ngIf="questions.length > 0; else loading">
+        <h2>Lista de Perguntas</h2>
+        <ul>
+          <li *ngFor="let question of questions">
+            <strong>ID do Usuário:</strong> {{ question.idUser }}<br>
+            <strong>ID da Aplicação:</strong> {{ question.idApp }}<br>
+            <strong>Fase da Atividade:</strong> {{ question.phaseActivity }}<br>
+            <strong>Número da Atividade:</strong> {{ question.numberActivity }}<br>
+            <strong>Resposta do Usuário:</strong> {{ question.userResponse }}<br>
+            <strong>Resposta Esperada:</strong> {{ question.expectedResponse }}<br>
+            <strong>É Correto:</strong> {{ question.isCorrect ? 'Sim' : 'Não' }}<br>
+            <strong>Data da Resposta:</strong> {{ question.dateResponse | date }}<br>
+            <strong>Tipo de Questão:</strong> {{ question.typeOfQuestion }}<br>
+          </li>
+        </ul>
+      </div>
+      
+      <ng-template #loading>
+        <p class="loading-message">Carregando perguntas...</p>
+      </ng-template>
+      
+    </div>
+  </div>
+</body>
+</html>

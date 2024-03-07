@@ -5,15 +5,13 @@ import { Question } from 'src/app/models/question.model';
 @Injectable({
   providedIn: 'root'
 })
-export class QuestionsService {
+export class ResponsesBinaryService {
 
   private readonly API = 'api/question';
 
   constructor(private httpClient: HttpClient) { }
 
-  saveResponseQuestion(question: Question){
-      return this.httpClient.post<Question>(this.API,question);
+  getAllQuestion(){
+    return this.httpClient.get(this.API);
   }
-
-
 }
