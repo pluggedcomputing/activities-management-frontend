@@ -8,10 +8,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { StatisticBinaryComponent } from './components/statistic-binary/statistic-binary.component';
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    StatisticBinaryComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -22,6 +26,7 @@ import { RouterModule } from '@angular/router';
     ReactiveFormsModule,
     HttpClientModule,
     RouterModule
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
