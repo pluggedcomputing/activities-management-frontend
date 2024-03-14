@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Activities Management</title>
-</head>
-<body>
+
   <div class="container">
     <div class="content">
       <input type="text" [(ngModel)]="searchTerm" placeholder="Pesquisar...">
@@ -33,10 +25,9 @@
         <p>Resposta do Usuário: {{ question.userResponse }}</p>
         <p>Resposta Esperada: {{ question.expectedResponse }}</p>
         <p>Está Correto: {{ question.isCorrect ? 'Sim' : 'Não' }}</p>
-        <p>Data da Resposta: {{ question.dateResponse | date }}</p>
+        <p>Data e Hora da Resposta: {{ question.dateResponse | date:'dd/MM/yyyy HH:mm:ss' }}</p>
         <p>Tipo de Questão: {{ question.typeOfQuestion }}</p>
       </li>
     </ul>
   </div>
-</body>
-</html>
+

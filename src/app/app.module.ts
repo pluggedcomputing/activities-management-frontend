@@ -8,14 +8,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-import { StatisticBinaryComponent } from './components/statistic-binary/statistic-binary.component';
+import { StatisticBinaryComponent } from './components/binary/statistic-binary/statistic-binary.component';
 import { HomeComponent } from './components/home/home.component';
+import { HomeBinaryComponent } from './components/binary/home-binary/home-binary.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     StatisticBinaryComponent,
-    HomeComponent
+    HomeComponent,
+    HomeBinaryComponent
   ],
   imports: [
     BrowserModule,
