@@ -1,33 +1,40 @@
+<div class="container">
+  <div class="content">
+    <button routerLink="/home-binary" class="back-button">Voltar</button>
+    <input type="text" [(ngModel)]="searchTerm" placeholder="Pesquisar...">
+    <select [(ngModel)]="selectedFilter">
+      <option value="">Selecionar Filtro</option>
+      <option value="idApp">ID da Aplicação</option>
+      <option value="phaseActivity">Fase da Atividade</option>
+      <option value="numberActivity">Número da Atividade</option>
+      <option value="idUser">ID do Usuário</option>
+    </select>
+    <button (click)="filterQuestions()" class="filter-button">Filtrar</button>
+    <br>
 
-  <div class="container">
-    <div class="content">
-      <input type="text" [(ngModel)]="searchTerm" placeholder="Pesquisar...">
-
-      <select [(ngModel)]="selectedFilter">
-        <option value="">Selecionar Filtro</option>
-        <option value="idApp">ID da Aplicação</option>
-        <option value="phaseActivity">Fase da Atividade</option>
-        <option value="numberActivity">Número da Atividade</option>
-        <option value="idUser">ID do Usuário</option>
-      </select>
-
-      <button (click)="filterQuestions()" class="filter-button">Filtrar</button>
-      <br>
-    </div>
-
-    <ul class="answers-list">
-      <li *ngFor="let question of filteredQuestions" class="answer-item">
-        <!-- Exibir as informações das respostas aqui -->
-        <p>ID da Aplicação: {{ question.idApp }}</p>
-        <p>Fase da Atividade: {{ question.phaseActivity }}</p>
-        <p>Número da Atividade: {{ question.numberActivity }}</p>
-        <p>ID do Usuário: {{ question.idUser }}</p>
-        <p>Resposta do Usuário: {{ question.userResponse }}</p>
-        <p>Resposta Esperada: {{ question.expectedResponse }}</p>
-        <p>Está Correto: {{ question.isCorrect ? 'Sim' : 'Não' }}</p>
-        <p>Data e Hora da Resposta: {{ question.dateResponse | date:'dd/MM/yyyy HH:mm:ss' }}</p>
-        <p>Tipo de Questão: {{ question.typeOfQuestion }}</p>
-      </li>
-    </ul>
+    <!-- Adicionando opção de ordenação -->
+    <select [(ngModel)]="selectedOrder">
+      <option value="dateResponse">Data de Envio</option>
+      <option value="idApp">ID da Aplicação</option>
+      <option value="phaseActivity">Fase da Atividade</option>
+      <option value="numberActivity">Número da Atividade</option>
+      <option value="idUser">ID do Usuário</option>
+    </select>
   </div>
 
+  <ul class="answers-list">
+    <!-- Utilize o pipe orderBy no ngFor para ordenar as respostas -->
+    <li *ngFor="let question of filteredQuestions" class="answer-item">
+      <!-- Exibir as informações das respostas aqui -->
+      <p>ID da Aplicação: {{ question.idApp }}</p>
+      <p>Fase da Atividade: {{ question.phaseActivity }}</p>
+      <p>Número da Atividade: {{ question.numberActivity }}</p>
+      <p>ID do Usuário: {{ question.idUser }}</p>
+      <p>Resposta do Usuário: {{ question.userResponse }}</p>
+      <p>Resposta Esperada: {{ question.expectedResponse }}</p>
+      <p>Está Correto: {{ question.isCorrect ? 'Sim' : 'Não' }}</p>
+      <p>Data e Hora da Resposta: {{ question.dateResponse | date:'dd/MM/yyyy HH:mm:ss' }}</p>
+      <p>Tipo de Questão: {{ question.typeOfQuestion }}</p>
+    </li>
+  </ul>
+</div>
