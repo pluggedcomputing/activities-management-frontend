@@ -35,15 +35,17 @@ export class StatisticBinaryComponent implements OnInit {
 
   // Método para filtrar perguntas com base no termo de pesquisa, no filtro selecionado e no critério de ordenação
   filterQuestions() {
-    if (this.selectedFilter && this.searchTerm.trim() !== '') {
+    if (this.selectedOrder && this.searchTerm.trim() !== '') {
+      // Filtrar as perguntas com base no critério de pesquisa e no termo de pesquisa
       this.filteredQuestions = this.questions.filter(question =>
-        question[this.selectedFilter].toString().toLowerCase().includes(this.searchTerm.toLowerCase())
+        question[this.selectedOrder].toString().toLowerCase().includes(this.searchTerm.toLowerCase())
       );
+      // Ordenar as perguntas filtradas
+      this.orderQuestions();
     } else {
-      this.filteredQuestions = this.questions;
+      // Se não houver critério de pesquisa ou termo de pesquisa, simplesmente atribua todas as perguntas
+      this.filteredQuestions = this.questions.slice(); // Cria uma cópia das perguntas para evitar mutação do array original
     }
-    // Ordenar as perguntas após aplicar o filtro
-    this.orderQuestions();
   }
 
   // Método para ordenar as perguntas de acordo com o critério selecionado
@@ -58,7 +60,7 @@ export class StatisticBinaryComponent implements OnInit {
   // Método para limpar o campo de pesquisa, redefinir os filtros e reaplicar os filtros
   clearSearch() {
     this.searchTerm = '';
-    this.selectedFilter = '';
+    this.selectedOrder = '';
     this.filterQuestions(); // Reaplicar os filtros após limpar
   }
 }
