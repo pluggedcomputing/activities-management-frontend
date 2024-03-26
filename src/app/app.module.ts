@@ -11,13 +11,15 @@ import { RouterModule } from '@angular/router';
 import { StatisticBinaryComponent } from './components/binary/statistic-binary/statistic-binary.component';
 import { HomeComponent } from './components/home/home.component';
 import { HomeBinaryComponent } from './components/binary/home-binary/home-binary.component';
+import { SearchUserComponent } from './components/binary/search-user/search-user.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     StatisticBinaryComponent,
     HomeComponent,
-    HomeBinaryComponent
+    HomeBinaryComponent,
+    SearchUserComponent
   ],
   imports: [
     BrowserModule,

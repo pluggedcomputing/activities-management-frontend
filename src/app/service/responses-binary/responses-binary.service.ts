@@ -14,4 +14,9 @@ export class ResponsesBinaryService {
   getAllQuestion(){
     return this.httpClient.get(this.API);
   }
+
+
+  getQuestionsOfUser(idUser: string, idApp: String) {
+    return this.httpClient.get<Question[]>(`${this.API}/getUniqueUser?idUser=${idUser}&idApp=${idApp}`);
+  }
 }
