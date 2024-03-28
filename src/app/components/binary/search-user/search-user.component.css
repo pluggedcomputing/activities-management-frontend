@@ -4,6 +4,32 @@ body {
   margin: 0;
 }
 
+.container-user-statistics {
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.container-user-statistics h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.container-user-statistics ul {
+  list-style: none;
+  padding: 0;
+}
+
+.container-user-statistics li {
+  margin-bottom: 5px;
+}
+
+.container-user-statistics li:first-child {
+  font-weight: bold;
+}
+
+
 .container-search {
   max-width: 800px;
   margin: 20px auto;

@@ -6,9 +6,21 @@
   <br>
   <input type="text" [(ngModel)]="idUser" placeholder="Digite o ID do usuário">
   <br>
-  <button (click)="searchUser()" class="filter-button">Pesquisar</button>
+  <button (click)="searchUser(); getStatisticsUser()" class="filter-button">Pesquisar</button>
   <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
 </div>
+
+<div class="container-user-statistics" *ngIf="statisticsUser">
+  <h2>Estatísticas do Usuário</h2>
+  <ul>
+    <li>Total de Respostas: {{ statisticsUser.quantityAllAnswers }}</li>
+    <li>Total de Respostas Corretas: {{ statisticsUser.quantityCorrectsAnswers }}</li>
+    <li>Total de Respostas Incorretas: {{ statisticsUser.quantityWrongsAnswers }}</li>
+    <li>Porcentagem de Respostas Corretas: {{ statisticsUser.percentageCorrectsAnswers }}%</li>
+    <li>Porcentagem de Respostas Incorretas: {{ statisticsUser.percentageWrongsAnswers }}%</li>
+  </ul>
+</div>
+
 
 
 <div class="container-responses">
