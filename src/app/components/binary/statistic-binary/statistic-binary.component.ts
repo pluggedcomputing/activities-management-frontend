@@ -7,20 +7,21 @@ import { ResponsesBinaryService } from 'src/app/service/responses-binary/respons
   styleUrls: ['./statistic-binary.component.css']
 })
 export class StatisticBinaryComponent implements OnInit {
-
   questions: any[] = [];
   filteredQuestions: any[] = [];
-  searchTerm: string = '';
-  selectedFilter: string = '';
-  selectedOrder: string = 'dateResponse'; // Adicionando a variável para o critério de ordenação inicial
+  searchTerm = '';
+  selectedOrder = 'dateResponse';
 
   constructor(private responseBinary: ResponsesBinaryService) { }
 
-  getAllQuestions(){
+  ngOnInit(): void {
+    this.loadAllQuestions();
+  }
+
+  loadAllQuestions(): void {
     this.responseBinary.getAllQuestion().subscribe(
       (data: any) => {
         this.questions = data;
-        // Ao receber os dados, atualize as perguntas filtradas inicialmente
         this.filterQuestions();
       },
       error => {
@@ -29,27 +30,18 @@ export class StatisticBinaryComponent implements OnInit {
     );
   }
 
-  ngOnInit(): void {
-    this.getAllQuestions();
-  }
-
-  // Método para filtrar perguntas com base no termo de pesquisa, no filtro selecionado e no critério de ordenação
-  filterQuestions() {
+  filterQuestions(): void {
     if (this.selectedOrder && this.searchTerm.trim() !== '') {
-      // Filtrar as perguntas com base no critério de pesquisa e no termo de pesquisa
       this.filteredQuestions = this.questions.filter(question =>
         question[this.selectedOrder].toString().toLowerCase().includes(this.searchTerm.toLowerCase())
       );
-      // Ordenar as perguntas filtradas
       this.orderQuestions();
     } else {
-      // Se não houver critério de pesquisa ou termo de pesquisa, simplesmente atribua todas as perguntas
-      this.filteredQuestions = this.questions.slice(); // Cria uma cópia das perguntas para evitar mutação do array original
+      this.filteredQuestions = this.questions.slice();
     }
   }
 
-  // Método para ordenar as perguntas de acordo com o critério selecionado
-  orderQuestions() {
+  orderQuestions(): void {
     this.filteredQuestions.sort((a, b) => {
       const dateA = new Date(a[this.selectedOrder]);
       const dateB = new Date(b[this.selectedOrder]);
@@ -57,10 +49,9 @@ export class StatisticBinaryComponent implements OnInit {
     });
   }
 
-  // Método para limpar o campo de pesquisa, redefinir os filtros e reaplicar os filtros
-  clearSearch() {
+  clearSearch(): void {
     this.searchTerm = '';
     this.selectedOrder = '';
-    this.filterQuestions(); // Reaplicar os filtros após limpar
+    this.filterQuestions();
   }
 }

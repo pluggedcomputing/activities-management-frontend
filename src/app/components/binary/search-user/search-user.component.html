@@ -10,54 +10,62 @@
   <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
 </div>
 
-<div class="container-user-statistics" *ngIf="statisticsUser">
-  <h2>Estatísticas do Usuário</h2>
-  <ul>
-    <li>Total de Respostas: {{ statisticsUser.quantityAllAnswers }}</li>
-    <li>Total de Respostas Corretas: {{ statisticsUser.quantityCorrectsAnswers }}</li>
-    <li>Total de Respostas Incorretas: {{ statisticsUser.quantityWrongsAnswers }}</li>
-    <li>Porcentagem de Respostas Corretas: {{ statisticsUser.percentageCorrectsAnswers }}%</li>
-    <li>Porcentagem de Respostas Incorretas: {{ statisticsUser.percentageWrongsAnswers }}%</li>
-  </ul>
+
+
+<div *ngIf="userQuestions.length > 0" class="container-user-statistics">
+  <div class="statistics-item">
+    <h2>Total de Respostas</h2>
+    <div class="statistics-value">{{ statisticsUser.quantityAllAnswers }}</div>
+  </div>
+  <div class="statistics-item">
+    <h2>Total de Respostas Corretas</h2>
+    <div class="statistics-value">{{ statisticsUser.quantityCorrectsAnswers }}</div>
+  </div>
+  <div class="statistics-item">
+    <h2>Total de Respostas Incorretas</h2>
+    <div class="statistics-value">{{ statisticsUser.quantityWrongsAnswers }}</div>
+  </div>
+  <div class="statistics-item">
+    <h2>Porcentagem de Respostas Corretas</h2>
+    <div class="statistics-value">{{ statisticsUser.percentageCorrectsAnswers }}%</div>
+  </div>
+  <div class="statistics-item">
+    <h2>Porcentagem de Respostas Incorretas</h2>
+    <div class="statistics-value">{{ statisticsUser.percentageWrongsAnswers }}%</div>
+  </div>
 </div>
 
 
 
-<div class="container-responses">
+<div class="container-responses" *ngIf="userQuestions.length > 0">
   <div class="content">
-    <div *ngIf="userQuestions.length > 0">
-      
-      <table class="answers-table">
-        <thead>
-          <tr>
-            <th>ID da Aplicação</th>
-            <th>Fase da Atividade</th>
-            <th>Número da Atividade</th>
-            <th>ID do Usuário</th>
-            <th>Resposta do Usuário</th>
-            <th>Resposta Esperada</th>
-            <th>Está Correto</th>
-            <th>Data e Hora da Resposta</th>
-            <th>Tipo de Questão</th>
-          </tr>
-        </thead>
-          <!-- Utilize o pipe orderBy no ngFor para ordenar as respostas -->
-          <tr *ngFor="let question of userQuestions" class="answer-item">
-            <!-- Exibir as informações das respostas aqui -->
-            <td>{{ question.idApp }}</td>
-            <td>{{ question.phaseActivity }}</td>
-            <td>{{ question.numberActivity }}</td>
-            <td>{{ question.idUser }}</td>
-            <td>{{ question.userResponse }}</td>
-            <td>{{ question.expectedResponse }}</td>
-            <td>{{ question.isCorrect ? 'Sim' : 'Não' }}</td>
-            <td>{{ question.dateResponse | date:'dd/MM/yyyy HH:mm:ss' }}</td>
-            <td>{{ question.typeOfQuestion }}</td>
-          </tr>
-      </table>
-         
-
-
-    </div>
+    <table class="answers-table">
+      <thead>
+        <tr>
+          <th>ID da Aplicação</th>
+          <th>Fase da Atividade</th>
+          <th>Número da Atividade</th>
+          <th>ID do Usuário</th>
+          <th>Resposta do Usuário</th>
+          <th>Resposta Esperada</th>
+          <th>Está Correto</th>
+          <th>Data e Hora da Resposta</th>
+          <th>Tipo de Questão</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let question of userQuestions" class="answer-item">
+          <td>{{ question.idApp }}</td>
+          <td>{{ question.phaseActivity }}</td>
+          <td>{{ question.numberActivity }}</td>
+          <td>{{ question.idUser }}</td>
+          <td>{{ question.userResponse }}</td>
+          <td>{{ question.expectedResponse }}</td>
+          <td>{{ question.isCorrect ? 'Sim' : 'Não' }}</td>
+          <td>{{ question.dateResponse | date:'dd/MM/yyyy HH:mm:ss' }}</td>
+          <td>{{ question.typeOfQuestion }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>
