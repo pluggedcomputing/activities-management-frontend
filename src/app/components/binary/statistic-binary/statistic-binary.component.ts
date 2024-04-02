@@ -22,7 +22,8 @@ export class StatisticBinaryComponent implements OnInit {
     this.responseBinary.getAllQuestion().subscribe(
       (data: any) => {
         this.questions = data;
-        this.filterQuestions();
+        this.orderQuestions(); // Ordena as questões por data após o carregamento
+        this.filterQuestions(); // Aplica os filtros
       },
       error => {
         console.error('Erro ao buscar detalhes da atividade:', error);
@@ -35,17 +36,16 @@ export class StatisticBinaryComponent implements OnInit {
       this.filteredQuestions = this.questions.filter(question =>
         question[this.selectedOrder].toString().toLowerCase().includes(this.searchTerm.toLowerCase())
       );
-      this.orderQuestions();
     } else {
       this.filteredQuestions = this.questions.slice();
     }
   }
 
   orderQuestions(): void {
-    this.filteredQuestions.sort((a, b) => {
+    this.questions.sort((a, b) => {
       const dateA = new Date(a[this.selectedOrder]);
       const dateB = new Date(b[this.selectedOrder]);
-      return dateA.getTime() - dateB.getTime();
+      return dateB.getTime() - dateA.getTime();
     });
   }
 

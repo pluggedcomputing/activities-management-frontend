@@ -6,6 +6,13 @@
   <br>
   <input type="text" [(ngModel)]="idUser" placeholder="Digite o ID do usuário">
   <br>
+  <div class="date-filter-container">
+    <h6>Data Inicial:</h6>
+    <input type="date" [(ngModel)]="startDate" placeholder="Data inicial">
+    <h6>Data Final:</h6>
+    <input type="date" [(ngModel)]="endDate" placeholder="Data final">
+  </div>
+  <br><br>
   <button (click)="searchUser(); getStatisticsUser()" class="filter-button">Pesquisar</button>
   <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
 </div>

@@ -15,17 +15,21 @@ export class SearchUserComponent implements OnInit {
   userQuestions: any[] = [];
   errorMessage: string = "";
   statisticsUser: UserStatistics = new UserStatistics;
+  startDate = new Date();
+  endDate = new Date();
+
 
   constructor(private responseBinary: ResponsesBinaryService) { }
 
   ngOnInit(): void {
   }
 
+
+
   searchUser() {
     // Verifica se o id do usuário está preenchido
-    if (this.idUser.trim() !== "") {
-      
-      this.responseBinary.getQuestionsOfUser(this.idUser, this.idApp) // Chama o método getQuestionsOfUser passando o id do usuário
+    if (this.idUser.trim() !== "") {     
+      this.responseBinary.getQuestionsOfUser(this.idUser, this.idApp, this.startDate, this.endDate)
         .subscribe(
           (questions: Question[]) => {
             if (questions.length > 0) { // Verifica se há perguntas retornadas  
@@ -55,7 +59,7 @@ export class SearchUserComponent implements OnInit {
 
   getStatisticsUser() {
     if (this.idUser.trim() !== "") {
-      this.responseBinary.getStatisticsUser(this.idUser, this.idApp)
+      this.responseBinary.getStatisticsUser(this.idUser, this.idApp, this.startDate, this.endDate)
         .subscribe(
           (userStatistics: UserStatistics) => {
             this.statisticsUser = userStatistics;

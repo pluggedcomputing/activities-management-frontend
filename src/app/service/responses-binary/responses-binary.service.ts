@@ -17,11 +17,12 @@ export class ResponsesBinaryService {
   }
 
 
-  getQuestionsOfUser(idUser: string, idApp: String) {
-    return this.httpClient.get<Question[]>(`${this.API}/getUniqueUser?idUser=${idUser}&idApp=${idApp}`);
+  getQuestionsOfUser(idUser: string, idApp: String, startDate: Date, endDate: Date) {
+    return this.httpClient.get<Question[]>(`${this.API}/getUniqueUser?idUser=${idUser}&idApp=${idApp}&startDate=${startDate}&endDate=${endDate}`);
   }
 
-  getStatisticsUser(idUser: string, idApp: String){
-    return this.httpClient.get<UserStatistics>(`${this.API}/getStatisticsUser?idUser=${idUser}&idApp=${idApp}`);
+
+  getStatisticsUser(idUser: string, idApp: String, startDate: Date, endDate: Date){
+    return this.httpClient.get<UserStatistics>(`${this.API}/getStatisticsUser?idUser=${idUser}&idApp=${idApp}&startDate=${startDate}&endDate=${endDate}`);
   }
 }
