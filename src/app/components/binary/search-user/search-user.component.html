@@ -13,7 +13,7 @@
     <input type="date" [(ngModel)]="endDate" placeholder="Data final">
   </div>
   <br><br>
-  <button (click)="searchUser(); getStatisticsUser()" class="filter-button">Pesquisar</button>
+  <button (click)="searchUser();" class="filter-button">Pesquisar</button>
   <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
 </div>
 
