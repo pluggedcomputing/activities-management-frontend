@@ -1,14 +1,39 @@
+<div class="main-menu">
+  <button mat-button [matMenuTriggerFor]="aboveMenu" routerLink="/"> <mat-icon>home</mat-icon></button>
+  <mat-menu #aboveMenu="matMenu" yPosition="above">
+  </mat-menu>
+
+  <button mat-button [matMenuTriggerFor]="belowMenu">Usuário</button>
+  <mat-menu #belowMenu="matMenu" yPosition="above">
+    <button mat-menu-item routerLink="/search-user">Pesquisar Usuário</button> 
+  </mat-menu>
+
+  <button mat-button [matMenuTriggerFor]="beforeMenu">Questões</button>
+  <mat-menu #beforeMenu="matMenu" xPosition="before">
+    <button mat-menu-item>Pesquisar Questão</button>
+    <button mat-menu-item  routerLink="/statistics-binary">Todas Respostas</button>
+  </mat-menu>
+</div>
+
+
+
+
 <div class="container-search">
   <div class="content">
-    <button routerLink="/home-binary" class="back-button">Voltar</button>
-    <input type="text" [(ngModel)]="searchTerm" placeholder="Pesquisar...">
+    <h1>Todas as respostas</h1>
+    <div class="div-data">
+    <br>
+    <a>Filtrar por:</a>
+  </div>
     <select [(ngModel)]="selectedOrder">
       <option value="dateResponse">Data de Envio</option>
-      <option value="idApp">ID da Aplicação</option>
-      <option value="phaseActivity">Fase da Atividade</option>
-      <option value="numberActivity">Número da Atividade</option>
-      <option value="idUser">ID do Usuário</option>
+      <option value="idApp">Aplicação</option>
+      <option value="phaseActivity">Fase </option>
+      <option value="numberActivity">Atividade</option>
+      <option value="idUser">Usuário</option>
     </select>
+    <br>
+    <input type="text" [(ngModel)]="searchTerm" placeholder="Pesquisar...">
     <br>
     <button (click)="filterQuestions()" class="filter-button">Filtrar</button>
   

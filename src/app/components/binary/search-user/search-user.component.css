@@ -3,16 +3,42 @@ body {
   background-color: #f0f0f0;
   margin: 0;
 }
+.main-menu{
+  padding: 8px; 
+  background-color: #007bff;
+  color: white;
+}
 
 .date-filter-container {
   display: flex;
   align-items: center;
 }
 
+.filter-button {
+  display: block;
+  width: 100%;
+  padding: 10px 0;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.filter-button:hover {
+  background-color: var(--light-blue);;
+}
+
 .date-label {
   margin-right: 20PX; /* Espaçamento entre os títulos e os inputs de data */
 }
-
+h1 {
+  color: var(--dark-blue);
+  padding: 0.5rem;
+  font-weight: 700;
+  margin: 1rem 0 0 0;
+  font-size: 1.6rem;
+}
 
 input[type="date"] {
   padding: 8px; 
@@ -22,19 +48,6 @@ input[type="date"] {
 }
 
 
-.filter-button {
-  padding: 8px 20px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.filter-button:hover {
-  background-color: #0056b3;
-}
 
 
 input[type="date"] {
@@ -46,19 +59,6 @@ input[type="date"] {
 }
 
 
-.filter-button {
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.filter-button:hover {
-  background-color: #0056b3;
-}
 
 
 .container-user-statistics {
@@ -114,21 +114,6 @@ select {
   border-radius: 5px;
   width: 100%;
   box-sizing: border-box;
-}
-
-.filter-button {
-  display: block;
-  width: 100%;
-  padding: 10px 0;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.filter-button:hover {
-  background-color: #0056b3;
 }
 
 .answers-list {
