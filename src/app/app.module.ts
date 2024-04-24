@@ -25,6 +25,8 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 
 
 import { SearchUserComponent } from './components/binary/search-user/search-user.component';
+import { SearchQuestionComponent } from './components/binary/search-question/search-question.component';
+import { MenubarComponent } from './components/menubar/menubar.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +34,8 @@ import { SearchUserComponent } from './components/binary/search-user/search-user
     StatisticBinaryComponent,
     HomeComponent,
     SearchUserComponent,
+    SearchQuestionComponent,
+    MenubarComponent,
     
   ],
   imports: [

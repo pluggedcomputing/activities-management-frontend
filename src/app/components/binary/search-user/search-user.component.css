@@ -3,11 +3,7 @@ body {
   background-color: #f0f0f0;
   margin: 0;
 }
-.main-menu{
-  padding: 8px; 
-  background-color: #007bff;
-  color: white;
-}
+
 
 .date-filter-container {
   display: flex;
@@ -38,6 +34,9 @@ h1 {
   font-weight: 700;
   margin: 1rem 0 0 0;
   font-size: 1.6rem;
+}
+h2,th{
+  color: var(--dark-blue);
 }
 
 input[type="date"] {

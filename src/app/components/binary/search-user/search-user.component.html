@@ -1,21 +1,3 @@
-<div class="main-menu">
-  <button mat-button [matMenuTriggerFor]="aboveMenu" routerLink="/"> <mat-icon>home</mat-icon></button>
-  <mat-menu #aboveMenu="matMenu" yPosition="above">
-  </mat-menu>
-
-  <button mat-button [matMenuTriggerFor]="belowMenu">Usuário</button>
-  <mat-menu #belowMenu="matMenu" yPosition="above">
-    <button mat-menu-item routerLink="/search-user">Pesquisar Usuário</button> 
-  </mat-menu>
-
-  <button mat-button [matMenuTriggerFor]="beforeMenu">Questões</button>
-  <mat-menu #beforeMenu="matMenu" xPosition="before">
-    <button mat-menu-item>Pesquisar Questão</button>
-    <button mat-menu-item  routerLink="/statistics-binary">Todas Respostas</button>
-  </mat-menu>
-
-</div>
-
 
 <div class="container-search">
   <div class="content">
@@ -25,11 +7,7 @@
   <input type="text" [(ngModel)]="idUser" placeholder="Digite o ID do usuário">
   
 
-  
-
-
-
-  <br>
+    <br>
   <div class="date-filter-container">
     <h6>Data Inicial:</h6>
     <input type="date" [(ngModel)]="startDate" placeholder="Data inicial">
