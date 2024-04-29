@@ -18,12 +18,6 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 
 
-
-
-
-
-
-
 import { SearchUserComponent } from './components/binary/search-user/search-user.component';
 import { SearchQuestionComponent } from './components/binary/search-question/search-question.component';
 import { MenubarComponent } from './components/menubar/menubar.component';
@@ -54,8 +48,6 @@ import { MenubarComponent } from './components/menubar/menubar.component';
     MatExpansionModule,
     MatSelectModule,
     MatDatepickerModule
-    
-    
     
   ],
   providers: [],

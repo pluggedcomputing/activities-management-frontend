@@ -56,6 +56,15 @@ a{
   align-items: start;
 }
 
+th, tr{
+  padding: 25%;
+  width: 10%;
+}
+th{
+  color: var(--dark-blue);;
+}
+
+
 .filter-button {
   display: block;
   width: 100%;

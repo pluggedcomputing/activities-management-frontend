@@ -1,1 +1,32 @@
-<p>search-question works!</p>
+<app-menubar></app-menubar>
+
+<div class="container-search">
+  <div class="content">
+    <mat-form-field>
+      <mat-label>Fase</mat-label>
+      <mat-select [(ngModel)]="selectedFase">
+        <mat-option *ngFor="let fase of allFases" [value]="fase.value">{{ fase.viewValue }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <br>
+    <br>
+    <mat-form-field>
+      <mat-label>Atividade</mat-label>
+      <mat-select [(ngModel)]="selectedAtividade">
+        <mat-option *ngFor="let atividade of allAtividades" [value]="atividade.value">{{ atividade.viewValue }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <br>
+    <br>
+    <div class="date-filter-container">
+      <h6>Data Inicial:</h6>
+      <input type="date" [(ngModel)]="startDate" placeholder="Data inicial">
+      <h6>Data Final:</h6>
+      <input type="date" [(ngModel)]="endDate" placeholder="Data final">
+    </div>
+    <br><br>
+    <button (click)="searchQuestion();" class="filter-button">Pesquisar</button>
+    <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+
+  </div>
+</div>

@@ -46,9 +46,6 @@ input[type="date"] {
   border-radius: 5px;
 }
 
-
-
-
 input[type="date"] {
   padding: 10px;
   margin-right: 25px;
@@ -58,13 +55,9 @@ input[type="date"] {
 }
 
 
-
-
 .container-user-statistics {
   margin-top: 20px;
   padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
 }
 
 .container-user-statistics h2 {

@@ -12,25 +12,29 @@ export class ResponsesBinaryService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getAllQuestion(){
+
+  getAllQuestion(){ // Pega todas as questões.
     return this.httpClient.get(this.API);
   }
 
-
-  getQuestionsOfUser(idUser: string, idApp: String) {
+  getQuestionsOfUser(idUser: string, idApp: String) { // Pega todas as questões de um usuário específico.
     return this.httpClient.get<Question[]>(`${this.API}/getUniqueUser?idUser=${idUser}&idApp=${idApp}`);
   }
 
-  getQuestionsOfUserWithDate(idUser: string, idApp: String, startDate: Date, endDate: Date) {
+  getQuestionsOfUserWithDate(idUser: string, idApp: String, startDate: Date, endDate: Date) { // Pega todas as questões de um usuário específico e em uma data específica.
     return this.httpClient.get<Question[]>(`${this.API}/getUniqueUser?idUser=${idUser}&idApp=${idApp}&startDate=${startDate}&endDate=${endDate}`);
   }
 
 
-  getStatisticsUser(idUser: string, idApp: String){
+  getStatisticsUser(idUser: string, idApp: String){ // Pega todas as estastísticas de um usuário específico.
     return this.httpClient.get<UserStatistics>(`${this.API}/getStatisticsUser?idUser=${idUser}&idApp=${idApp}`);
   }
 
-  getStatisticsUserWithDate(idUser: string, idApp: String, startDate: Date, endDate: Date){
+  getStatisticsUserWithDate(idUser: string, idApp: String, startDate: Date, endDate: Date){ // Pega todas as estastísticas de um usuário específico em uma data específica.
     return this.httpClient.get<UserStatistics>(`${this.API}/getStatisticsUser?idUser=${idUser}&idApp=${idApp}&startDate=${startDate}&endDate=${endDate}`);
+  }
+
+  getSearchQuestion(atividade: string, fase: string){
+    return this.httpClient.get<Question[]>(`${this.API}/getSearchQuestion?fase=${fase}&atividade=${atividade}`)
   }
 }

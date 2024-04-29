@@ -1,19 +1,19 @@
 <div class="main-menu">
+
   <button mat-icon-button class="example-icon" routerLink="/" aria-label="Icone for home pag">
     <mat-icon>home</mat-icon>
   </button>
+
     <mat-menu #aboveMenu="matMenu" yPosition="above">
     </mat-menu>
     <span class="example-spacer"></span>
-    <button mat-button [matMenuTriggerFor]="belowMenu">Usuário</button>
-    <mat-menu #belowMenu="matMenu" yPosition="above">
-      <button mat-menu-item routerLink="/search-user">Pesquisar Usuário</button> 
-    </mat-menu>
   
-    <button mat-button [matMenuTriggerFor]="beforeMenu">Questões</button>
+    <button mat-button [matMenuTriggerFor]="beforeMenu">Respostas</button>
     <mat-menu #beforeMenu="matMenu" xPosition="before">
-      <button mat-menu-item routerLink="/search-question">Pesquisar Questão</button>
-      <button mat-menu-item  routerLink="/statistics-binary">Todas Respostas</button>
+      <button mat-menu-item routerLink="/search-question">Pesquisar por Questão</button>
+      <button mat-menu-item routerLink="/search-user">Pesquisar por Usuário</button> 
+      <button mat-menu-item  routerLink="/statistics-binary">Listar Todas as Respostas</button>
+     
     </mat-menu>
   
   </div>

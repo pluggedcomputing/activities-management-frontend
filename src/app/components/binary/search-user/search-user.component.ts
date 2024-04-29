@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ResponsesBinaryService } from 'src/app/service/responses-binary/responses-binary.service';
 import { Question } from 'src/app/models/question.model';
 import { UserStatistics } from 'src/app/models/userStatistics';
-import { end } from '@popperjs/core';
+
 
 @Component({
   selector: 'app-search-user',
@@ -42,7 +42,6 @@ export class SearchUserComponent implements OnInit {
       this.errorMessage = "Por favor, insira um ID de usuário válido.";
     }
   } 
-
 
 
   // Busca respostas do usuário sem uma data específica
