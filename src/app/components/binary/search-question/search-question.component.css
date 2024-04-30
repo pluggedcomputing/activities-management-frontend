@@ -1,211 +1,71 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    margin: 0;
-  }
-  
-  
-  .date-filter-container {
-    display: flex;
-    align-items: center;
-  }
-  
-  .filter-button {
-    display: block;
-    width: 100%;
-    padding: 10px 0;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .filter-button:hover {
-    background-color: var(--light-blue);;
-  }
-  
-  .date-label {
-    margin-right: 20PX; /* Espaçamento entre os títulos e os inputs de data */
-  }
-  h1 {
-    color: var(--dark-blue);
-    padding: 0.5rem;
-    font-weight: 700;
-    margin: 1rem 0 0 0;
-    font-size: 1.6rem;
-  }
-  h2,th{
-    color: var(--dark-blue);
-  }
-  
-  input[type="date"] {
-    padding: 8px; 
-    margin-right: 20px; 
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  input[type="date"] {
-    padding: 10px;
-    margin-right: 25px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    width: 200px;
-  }
-  
-  
-  .container-user-statistics {
-    margin-top: 20px;
-    padding: 10px;
-  }
-  
-  .container-user-statistics h2 {
-    font-size: 18px;
-    margin-bottom: 10px;
-  }
-  
-  .container-user-statistics ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .container-user-statistics li {
-    margin-bottom: 5px;
-  }
-  
-  .container-user-statistics li:first-child {
-    font-weight: bold;
-  }
-  
-  
-  .container-search {
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  .container-response{
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .content {
-    text-align: center;
-  }
-  
-  input[type="text"],
-  select {
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    width: 100%;
-    box-sizing: border-box;
-  }
-  
-  .answers-list {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .answer-item {
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    background-color: #f9f9f9;
-    padding: 15px;
-  }
-  .back-button {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s ease;
-  }
-  
-  .back-button:hover {
-    background-color: #0056b3;
-  }
-  
-  .answers-table {
-    padding: 15px;
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .answers-table th, .answers-table td {
-    border: 1px solid #ddd;
-    padding: 15px;
-  }
-  
-  .answers-table th {
-    background-color: #f2f2f2;
-  }
-  
-  .answers-table tr:nth-child(even) {
-    background-color: #f2f2f2;
-  }
-  
-  .answers-table tr:hover {
-    background-color: #ddd;
-  }
-  
-  .error-message {
-    margin-top: 10px;
-    padding: 10px;
-    background-color: #f8d7da; 
-    border: 1px solid #f5c6cb; 
-    color: #721c24; 
-    border-radius: 4px;
-  }
-  
-  
-  .container-user-statistics {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  .statistics-item {
-    text-align: center;
-    flex-basis: 18%;
-    padding: 10px;
-    background-color: #f9f9f9;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .statistics-item h2 {
-    margin-bottom: 5px;
-  }
-  
-  .statistics-value {
-    font-size: 20px;
-    font-weight: bold;
-    color: #007bff;
-  }
-  
-  .container-responses {
-    margin-top: 20px;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  
-  
+
+
+/* Estilo para o container principal de pesquisa */
+.container-search {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Estilo para o conteúdo dentro do container de pesquisa */
+.container-search .content {
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+/* Estilo para os campos de seleção */
+mat-form-field {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+/* Estilo para os botões */
+.filter-button {
+  display: block;
+  width: 100%;
+  padding: 10px 0;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.filter-button:hover {
+  background-color: var(--light-blue);;
+}
+/* Estilo para a mensagem de erro */
+.error-message {
+  color: #FF0000;
+  margin-top: 10px;
+  text-align: center;
+}
+
+
+/* Estilo para os inputs de data */
+.date-filter-container input[type="date"] {
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 40%;
+  margin-right: 10px;
+}
+
+/* Estilo para os espaçamentos */
+br {
+  line-height: 20px;
+}
+
+h1 {
+  color: var(--dark-blue);
+  padding: 0.5rem;
+  font-weight: 700;
+  margin: 1rem 0 0 0;
+  font-size: 1.6rem;
+}
+
+.titulo {
+  text-align: center; 
+  padding-bottom: 25px;
+}
