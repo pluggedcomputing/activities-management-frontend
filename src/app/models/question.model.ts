@@ -1,13 +1,13 @@
 export class Question {
-    private idUser: string;
-    private idApp: string;
-    private phaseActivity: string;
-    private numberActivity: string;
-    private userResponse: string;
-    private expectedResponse: string;
-    private isCorrect: boolean;
-    private dateResponse: Date;
-    private typeOfQuestion: string;
+    public idUser: string;
+    public idApp: string;
+    public phaseActivity: string;
+    public numberActivity: string;
+    public userResponse: string;
+    public expectedResponse: string;
+    public isCorrect: boolean;
+    public dateResponse: Date;
+    public typeOfQuestion: string;
   
     constructor(idUser: string, idApp: string, phaseActivity: string, numberActivity: string, userResponse: string, expectedResponse: string, isCorrect: boolean, dateResponse: Date, typeOfQuestion: string) {
       this.idUser = idUser;

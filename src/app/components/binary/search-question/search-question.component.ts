@@ -79,6 +79,7 @@ export class SearchQuestionComponent implements OnInit {
           } else {
             // Atribui as questões encontradas à variável questionSearch
             this.questionSearch = questions;
+            this.errorMessage = "";
           }
         },
         // Callback de erro

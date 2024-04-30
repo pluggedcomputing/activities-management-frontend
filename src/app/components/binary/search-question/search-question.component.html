@@ -34,3 +34,35 @@
 
   </div>
 </div>
+
+
+<div class="container-responses" *ngIf="questionSearch != null">
+    <table class="answers-table">
+      <thead>
+        <tr>
+          <th>Aplicação</th>
+          <th>Fase</th>
+          <th>Atividade</th>
+          <th>Usuário</th>
+          <th>Resposta do Usuário</th>
+          <th>Resposta Esperada</th>
+          <th>Está Correto</th>
+          <th>Data e Hora da Resposta</th>
+          <th>Tipo de Questão</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let question of questionSearch" class="answer-item">
+          <td>{{ question.idApp }}</td>
+          <td>{{ question.phaseActivity }}</td>
+          <td>{{ question.numberActivity }}</td>
+          <td>{{ question.idUser }}</td>
+          <td>{{ question.userResponse }}</td>
+          <td>{{ question.expectedResponse }}</td>
+          <td>{{ question.isCorrect ? 'Sim' : 'Não' }}</td>
+          <td>{{ question.dateResponse | date:'dd/MM/yyyy HH:mm:ss' }}</td>
+          <td>{{ question.typeOfQuestion }}</td>
+        </tr>
+      </tbody>
+    </table>
+</div>
