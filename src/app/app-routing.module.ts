@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
-import { StatisticBinaryComponent } from './components/binary/statistic-binary/statistic-binary.component'
+import { StatisticBinaryComponent } from './components/binary/all-answers/statistic-binary.component'
 import { SearchUserComponent } from './components/binary/search-user/search-user.component';
 import { SearchQuestionComponent } from './components/binary/search-question/search-question.component';
 

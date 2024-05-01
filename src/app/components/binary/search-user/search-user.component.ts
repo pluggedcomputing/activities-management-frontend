@@ -12,7 +12,6 @@ import { UserStatistics } from 'src/app/models/userStatistics';
 })
 export class SearchUserComponent implements OnInit {
 
-  // Variáveis para armazenar o ID do usuário, ID do aplicativo, lista de perguntas do usuário, mensagem de erro, estatísticas do usuário, e datas de início e fim da pesquisa
   idUser = "";
   idApp = "WEB-BINARIOS 1.0";
   userQuestions: any[] = [];

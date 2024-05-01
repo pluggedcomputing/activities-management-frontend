@@ -43,6 +43,7 @@ mat-form-field {
   border: 1px solid #f5c6cb; 
   color: #721c24; 
   border-radius: 4px;
+  text-align: center;
 }
 
 

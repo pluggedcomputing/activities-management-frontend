@@ -2,6 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ResponsesBinaryService } from 'src/app/service/responses-binary/responses-binary.service';
 import { Question } from 'src/app/models/question.model';
+import { QuestionStatistics } from 'src/app/models/questionStatistics';
 
 // Definindo interfaces para representar as fases e atividades
 interface fase {
@@ -25,15 +26,18 @@ export class SearchQuestionComponent implements OnInit {
   startDate = null;
   endDate = null;
 
+  // Variável da estastística das respostass
+  questionStatistics: QuestionStatistics = new QuestionStatistics();
+
   // Mensagem de erro
   errorMessage: string = "";
 
   // Array para armazenar as questões retornadas pela pesquisa
-  questionSearch: Question[] | null = null;
+  questionSearch: any[] = [];
 
   // Variáveis para armazenar as fases e atividades selecionadas pelo usuário
-  selectedFase: string = "";
-  selectedAtividade: string = "";
+  selectedFase = "";
+  selectedAtividade = "";
 
   // Opções para as fases e atividades
   allFases: fase[] = [
@@ -61,35 +65,127 @@ export class SearchQuestionComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  // Método para realizar a pesquisa de questões
+  // Método para realizar a pesquisa da questão
   searchQuestion() {
-    // Verifica se a fase e a atividade foram selecionadas
-    if (this.selectedFase == "" || this.selectedAtividade == "") {
-      this.errorMessage = "Por favor, escolha o número da atividade e da fase";
+    // Verifica se há alguma fase ou atividade selecionada
+    if (this.selectedAtividade.trim() !== "" || this.selectedFase.trim() !== "" ) {
+      // Verifica se há uma data específica
+      if (this.startDate != null && this.endDate != null) {
+        this.getQuestionWithDate();
+        this.getStaticsWithDate();
+      } else {
+        this.getQuestion();
+        this.getStatics();
+      }
     } else {
-      // Chama o serviço de busca de questões com os parâmetros selecionados
-      this.responseBinary.getSearchQuestion(this.selectedAtividade, this.selectedFase).subscribe(
+      // Limpa a lista de respostas da questão e exibe a mensagem de erro se a fase ou a atividade não estiver preenchido
+      this.questionSearch = [];
+      this.errorMessage = "Por favor, selecione alguma FASE e ATIVIDADE!";
+    }
+  }
+
+  // Método para buscar as respostas de uma questão sem uma data específica
+  getQuestion() {
+    this.responseBinary.getSearchQuestion(this.selectedAtividade,this.selectedFase).subscribe(
+      // Callback de sucesso
+      (questions: Question[]) => {
+        // Verifica se há respostas retornadas
+        if (questions.length > 0) {
+          // Atribui as respostas retornadas pelo serviço à variável questionSearch
+          this.questionSearch = questions;
+          // Limpa a mensagem de erro, caso exista
+          this.errorMessage = "";
+        } else {
+          // Limpa a lista de respostas e exibe a mensagem de erro
+          this.questionSearch = [];
+          this.errorMessage = "Nenhuma resposta encontrada para a FASE e ATIVIDADE especificadas.";
+        }
+        console.log(this.questionSearch);
+      },
+      // Callback de erro
+      (error) => {
+        console.error('Ocorreu um erro ao buscar as respostas dessa questão:', error);
+        // Limpa a lista de respostas e exibe a mensagem de erro
+        this.questionSearch = [];
+        this.errorMessage = "Ocorreu um erro ao buscar as respostas dessa questão específica. Por favor, tente novamente mais tarde.";
+      }
+    );
+  }
+
+  // Método para buscar as respostas de uma questão com uma data específica
+  getQuestionWithDate() {
+    if (this.startDate != null && this.endDate != null) {
+      this.responseBinary.getSearchQuestionWithDate(this.selectedAtividade, this.selectedFase, this.startDate, this.endDate).subscribe(
         // Callback de sucesso
         (questions: Question[]) => {
-          console.log(questions);
-          // Verifica se nenhuma questão foi encontrada
-          if (!questions || questions.length === 0) {
-            this.errorMessage = "Nenhuma resposta encontrada com esses parâmetros";
-            this.questionSearch = null;
-          } else {
-            // Atribui as questões encontradas à variável questionSearch
+          // Verifica se há respostas retornadas
+          if (questions.length > 0) {
+            // Atribui as respostas da questção retornado pelo serviço à variável questionSearch
             this.questionSearch = questions;
+            // Limpa a mensagem de erro, caso exista
             this.errorMessage = "";
+          } else {
+            // Limpa a lista de respostas e exibe a mensagem de erro
+            this.questionSearch = [];
+            this.errorMessage = "Nenhuma respostas encontrada para essa FASE, ATIVIDADE e DATA especificados.";
           }
+          console.log(this.questionSearch);
         },
         // Callback de erro
         (error) => {
-          console.error('Erro ao buscar questões:', error);
-          // Exibe mensagem de erro e limpa os resultados da pesquisa
-          this.errorMessage = "Ocorreu um erro ao buscar questões. Por favor, tente novamente mais tarde.";
-          this.questionSearch = null;
+          console.error('Ocorreu um erro ao buscar as perguntas do usuário:', error);
+          // Limpa a lista de respostas e exibe a mensagem de erro
+          this.questionSearch = [];
+          this.errorMessage = "Ocorreu um erro ao buscar as respostas da questão. Por favor, tente novamente mais tarde.";
         }
-      )
+      );
+    }
+  }
+
+  // Método para buscar as estatísticas das respostas sem uma data específica
+  getStatics() {
+    this.responseBinary.getStatisticsResponse(this.selectedAtividade,this.selectedFase).subscribe(
+      // Callback de sucesso
+      (questionStatistics: QuestionStatistics) => {
+        // Atribui as estatísticas das respostas retornado pelo serviço à variável questionStatistics
+        this.questionStatistics = questionStatistics;
+        console.log(this.questionStatistics);
+        // Limpa a mensagem de erro
+        this.errorMessage = "";
+      },
+      // Callback de erro
+      (error) => {
+        console.error('Ocorreu um erro ao buscar as estatísticas do usuário:', error);
+        // Limpa as estatísticas do usuário em caso de erro
+        this.questionStatistics = new QuestionStatistics();
+        // Exibe a mensagem de erro
+        this.errorMessage = "Ocorreu um erro ao buscar as estatísticas da questão específicada. Por favor, tente novamente mais tarde.";
+      }
+    );
+  }
+
+  // Método para buscar as estatísticas da questão com uma data específica
+  getStaticsWithDate() {
+    if (this.startDate != null && this.endDate != null) {
+      this.responseBinary.getStatisticsResponseWithDate(this.selectedAtividade, this.selectedFase, this.startDate, this.endDate).subscribe(
+        // Callback de sucesso
+        (questionStatistics: QuestionStatistics) => {
+          // Atribui as estatísticas da questão retornado pelo serviço à variável questionStatistics
+          this.questionStatistics = questionStatistics;
+          console.log(this.questionStatistics);
+          // Limpa a mensagem de erro
+          this.errorMessage = "";
+        },
+        // Callback de erro
+        (error) => {
+          console.error('Ocorreu um erro ao buscar as estatísticas da questão específicada:', error);
+          // Limpa as estatísticas do usuário em caso de erro
+          this.questionStatistics = new QuestionStatistics();
+          // Exibe a mensagem de erro
+          this.errorMessage = "Ocorreu um erro ao buscar as estatísticas da questão específicada. Por favor, tente novamente mais tarde.";
+        }
+      );
     }
   }
 }
+

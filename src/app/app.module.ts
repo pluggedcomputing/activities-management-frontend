@@ -11,7 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-import { StatisticBinaryComponent } from './components/binary/statistic-binary/statistic-binary.component';
+import { StatisticBinaryComponent } from './components/binary/all-answers/statistic-binary.component';
 import { HomeComponent } from './components/home/home.component';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatSelectModule} from '@angular/material/select';

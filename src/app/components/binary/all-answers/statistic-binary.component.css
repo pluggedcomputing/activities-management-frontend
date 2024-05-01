@@ -5,9 +5,12 @@ body {
 }
 
 
-.date-filter-container {
+.div-data {
   display: flex;
-  align-items: center;
+  align-items: right;
+  text-align: right;
+  padding: 2px;
+  font-size: small;
 }
 
 .filter-button {
