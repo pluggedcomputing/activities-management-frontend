@@ -8,6 +8,7 @@ body {
 .date-filter-container {
   display: flex;
   align-items: center;
+  padding-top: 2%;
 }
 
 .filter-button {
@@ -26,8 +27,9 @@ body {
 }
 
 .date-label {
-  margin-right: 20PX; /* Espaçamento entre os títulos e os inputs de data */
+  margin-right: 20PX; 
 }
+
 h1 {
   color: var(--dark-blue);
   padding: 0.5rem;
