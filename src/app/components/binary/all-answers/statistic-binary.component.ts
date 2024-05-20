@@ -1,7 +1,7 @@
 // Importando dependências necessárias do Angular
 import { Component, OnInit } from '@angular/core';
 import { ResponsesBinaryService } from 'src/app/service/responses-binary/responses-binary.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
+
 
 // Componente Angular para exibição de estatísticas de questões binárias
 @Component({
@@ -17,14 +17,14 @@ export class StatisticBinaryComponent implements OnInit {
   searchTerm = '';
   selectedOrder = 'dateResponse';
 
-  constructor(private responseBinary: ResponsesBinaryService, private snackBar: MatSnackBar) { }
+  constructor(private responseBinary: ResponsesBinaryService) { }
 
   // Método do ciclo de vida do componente, chamado após a inicialização do componente
   ngOnInit(): void {
     this.loadAllQuestions(); // Carrega todas as questões ao inicializar o componente
   }
 
-  // Método para carregar todas as questões
+  // Método para carregar todas as questões 
   loadAllQuestions(): void {
     this.responseBinary.getAllQuestion().subscribe(
       // Callback de sucesso
@@ -36,9 +36,6 @@ export class StatisticBinaryComponent implements OnInit {
       // Callback de erro
       error => {
         console.error('Erro ao buscar detalhes da atividade:', error);
-        this.snackBar.open('Não foi possível se conectar ao servidor', 'Fechar', {
-          duration: 5000 // 
-        });
       }
     );
   }

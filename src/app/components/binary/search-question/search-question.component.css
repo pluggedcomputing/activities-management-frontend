@@ -5,10 +5,15 @@ body {
   margin: 0;
 }
 
+.title{
+  text-align: center;
+}
+
+
 /* Estilo para o container principal de pesquisa */
 .container-search {
   max-width: 600px;
-  margin: 0 auto;
+  margin-bottom: 5%;
 }
 
 /* Estilo para os campos de seleção */
@@ -21,6 +26,8 @@ mat-form-field {
 .date-filter-container {
   display: flex;
   align-items: center;
+  text-align: center;
+
 }
 
 .filter-button {

@@ -1,8 +1,10 @@
 <app-menubar></app-menubar>
 <br>
+<div class="title">
+<h1>Todas as respostas</h1>
+</div>
 <div class="container-search">
   <div class="content">
-    <h1>Todas as respostas</h1>
     <div class="div-data">
     <br>
     <a>Filtrar por:</a>
@@ -18,12 +20,19 @@
     <input type="text" [(ngModel)]="searchTerm" placeholder="Pesquisar...">
     <br>
     <button (click)="filterQuestions()" class="filter-button">Filtrar</button>
-  
+    <br>
   </div>
+
+
+
+</div>
+<div *ngIf="questions.length == 0" class="warning-noserver">
+  <h2>Não foi possível se conectar ao servidor!</h2>
+  <mat-progress-bar  mode="indeterminate"></mat-progress-bar>
 </div>
 
 
-<div class="container-responses">
+<div  *ngIf="questions.length > 0" class="container-responses">
   <div class="content">
   <table class="answers-table">
     <thead>

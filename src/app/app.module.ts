@@ -17,6 +17,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {MatSelectModule} from '@angular/material/select';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import {MatProgressBarModule} from '@angular/material/progress-bar'
 
 
 
@@ -50,7 +51,8 @@ import { MenubarComponent } from './components/menubar/menubar.component';
     MatExpansionModule,
     MatSelectModule,
     MatDatepickerModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatProgressBarModule
     
   ],
   providers: [],

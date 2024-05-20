@@ -4,6 +4,16 @@ body {
   margin: 0;
 }
 
+.title{
+  text-align: center;
+}
+
+.warning-noserver{
+  padding: 20%;
+  padding-top: 5%;
+  text-align:  center;
+}
+
 
 .div-data {
   display: flex;
@@ -65,6 +75,7 @@ input[type="date"] {
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 3%;
 }
 .container-response{
   padding: 20px;

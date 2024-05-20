@@ -4,6 +4,11 @@ body {
   margin: 0;
 }
 
+.title{
+  text-align: center;
+}
+
+
 
 .date-filter-container {
   display: flex;
