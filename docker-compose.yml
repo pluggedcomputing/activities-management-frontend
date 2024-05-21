@@ -2,8 +2,8 @@ version: '3.5'
 
 services:
   activities-frontend:
-    image: a4sufpb/activities-frontend:latest
     container_name: container-activities-frontend
+    image: a4sufpb/activities-frontend:latest   
     ports:
       - "4201:4200"
     restart: always 
