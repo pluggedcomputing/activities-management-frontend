@@ -25,5 +25,7 @@ COPY --from=build /app/docs/ /usr/share/nginx/html
 # Exponha a porta 80 para o tráfego HTTP
 EXPOSE 80
 
+COPY nginx.conf /etc/nginx/nginx.conf
+
 # Comando para iniciar o NGINX
 CMD ["nginx", "-g", "daemon off;"]
