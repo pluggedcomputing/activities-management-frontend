@@ -9,7 +9,7 @@ import { QuestionStatistics } from 'src/app/models/questionStatistics';
 })
 export class ResponsesBinaryService {
 
-  private readonly API = 'http://api.observatorioturismopb.com.br:8383/api';
+  private readonly API = 'https://activities.a4s.dev.br/api';
 
   constructor(private httpClient: HttpClient) { }
 

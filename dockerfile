@@ -21,6 +21,7 @@ FROM nginx:alpine
 
 # Copie os arquivos compilados do projeto Angular para o diretório padrão do NGINX
 COPY --from=build /app/docs/ /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/nginx.conf
 
 # Exponha a porta 80 para o tráfego HTTP
 EXPOSE 80
