@@ -1,6 +1,5 @@
 <app-menubar></app-menubar>
 <br>
-
 <div class="title">
   <h1>Pesquisa por usuário</h1>
 </div>
@@ -14,7 +13,7 @@
   </div>
 
   <div (click)="dataOn=!dataOn" class="dataOn">
-    <h4>Filtrar respostas por périodo</h4> 
+    <h4>Filtrar respostas por périodo</h4>    
     <mat-icon>date_range</mat-icon>
   </div>
 
@@ -26,7 +25,9 @@
     <input type="date" [(ngModel)]="endDate" placeholder="Data final">
   </div>
   <br>
+  
   <button (click)="searchUser();" class="filter-button">Pesquisar</button>
+
   <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
  
 </div>

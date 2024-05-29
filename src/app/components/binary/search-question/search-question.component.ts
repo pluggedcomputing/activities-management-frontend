@@ -39,6 +39,9 @@ export class SearchQuestionComponent implements OnInit {
   selectedFase = "";
   selectedAtividade = "";
 
+  // Váriavel para mostrar ou não o menu de datas
+  dataOn = false;
+
   // Opções para as fases e atividades
   allFases: fase[] = [
     {value: "1", viewValue: 'Fase 1'},
