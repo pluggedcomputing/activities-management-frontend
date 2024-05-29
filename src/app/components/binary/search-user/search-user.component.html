@@ -1,23 +1,34 @@
 <app-menubar></app-menubar>
 <br>
+
 <div class="title">
   <h1>Pesquisa por usuário</h1>
 </div>
+
 <div class="container-search">
+
   <div class="content">
   <br>
-  <input type="text" [(ngModel)]="idUser" placeholder="Digite o ID do usuário">
-    <br>
-  <div class="date-filter-container">
-    <h6>Data Inicial:</h6>
+  <input type="text" [(ngModel)]="idUser" placeholder="Digite o código do usuário ou seu e-mail">
+  <br>
+  </div>
+
+  <div (click)="dataOn=!dataOn" class="dataOn">
+    <h4>Filtrar respostas por périodo</h4> 
+    <mat-icon>date_range</mat-icon>
+  </div>
+
+  <div *ngIf="dataOn" class="date-filter-container">  
+    <h5>Data Inicial:</h5>
     <input type="date" [(ngModel)]="startDate" placeholder="Data inicial">
-    <h6>Data Final:</h6>
+    <br>
+    <h5>Data Final:</h5>
     <input type="date" [(ngModel)]="endDate" placeholder="Data final">
   </div>
-  <br><br>
+  <br>
   <button (click)="searchUser();" class="filter-button">Pesquisar</button>
   <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
-  </div>
+ 
 </div>
 
 

@@ -3,12 +3,14 @@ import { Component, OnInit } from '@angular/core';
 import { ResponsesBinaryService } from 'src/app/service/responses-binary/responses-binary.service';
 import { Question } from 'src/app/models/question.model';
 import { UserStatistics } from 'src/app/models/userStatistics';
+import { MatIconModule } from '@angular/material/icon';
+
 
 // Componente Angular para pesquisa de usuário
 @Component({
   selector: 'app-search-user', // Seletor do componente
   templateUrl: './search-user.component.html', // Template HTML associado ao componente
-  styleUrls: ['./search-user.component.css'] // Estilos CSS associados ao componente
+  styleUrls: ['./search-user.component.css'], // Estilos CSS associados ao componente 
 })
 export class SearchUserComponent implements OnInit {
 
@@ -19,6 +21,7 @@ export class SearchUserComponent implements OnInit {
   statisticsUser: UserStatistics = new UserStatistics;
   startDate = null;
   endDate = null;
+  dataOn = false;
 
   constructor(private responseBinary: ResponsesBinaryService) { }
 
