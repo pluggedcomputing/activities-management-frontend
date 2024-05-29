@@ -15,7 +15,10 @@ export class StatisticBinaryComponent implements OnInit {
   questions: any[] = [];
   filteredQuestions: any[] = [];
   searchTerm = '';
-  selectedOrder = 'dateResponse';
+  selectedOrder = 'phaseActivity';
+  dataOn = true;
+  startDate = null;
+  endDate = null;
 
   constructor(private responseBinary: ResponsesBinaryService) { }
 

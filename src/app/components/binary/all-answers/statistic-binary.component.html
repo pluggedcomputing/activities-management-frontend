@@ -7,21 +7,32 @@
 <div class="container-search">
   <div class="content">
     <div class="div-data">
-      <label for="filter-select">Filtrar por:</label>
+      <h5 for="filter-select">Filtrar por:</h5>
     </div>
-    <select id="filter-select" [(ngModel)]="selectedOrder">
+    <select id="filter-select" [(ngModel)]="selectedOrder" >
       <option value="dateResponse">Data de Envio</option>
       <option value="idApp">Aplicação</option>
       <option value="phaseActivity">Fase</option>
       <option value="numberActivity">Atividade</option>
       <option value="idUser">Usuário</option>
     </select>
+
+    <div *ngIf="selectedOrder === 'dateResponse' "  class="date-filter-container">  
+      <h5>Data Inicial:</h5>
+      <input type="date" [(ngModel)]="startDate" placeholder="Data inicial">
+      <br>
+      <h5>Data Final:</h5>
+      <input type="date" [(ngModel)]="endDate" placeholder="Data final">
+    </div>
+    <br>
     
-    <input type="text" [(ngModel)]="searchTerm" placeholder="Pesquisar...">
+    <input *ngIf=" selectedOrder != 'dateResponse' " type="text" [(ngModel)]="searchTerm" placeholder="Pesquisar...">
     
     <button (click)="filterQuestions()" class="filter-button">Filtrar</button>
   </div>
 </div>
+
+
 
 <div *ngIf="questions.length === 0" class="warning-noserver">
   <h2>Não foi possível se conectar ao servidor!</h2>
