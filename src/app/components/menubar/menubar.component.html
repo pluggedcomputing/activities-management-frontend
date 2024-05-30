@@ -8,12 +8,9 @@
     </mat-menu>
     <span class="example-spacer"></span>
   
-    <button mat-button [matMenuTriggerFor]="beforeMenu">Respostas</button>
-    <mat-menu #beforeMenu="matMenu" xPosition="before">
-      <button mat-menu-item routerLink="/search-question">Pesquisar por Questão</button>
-      <button mat-menu-item routerLink="/search-user">Pesquisar por Usuário</button> 
-      <button mat-menu-item  routerLink="/statistics-binary">Listar Todas as Respostas</button>
-     
-    </mat-menu>
+    <button mat-button routerLink="/statistics-binary"> Listar Todas as Respostas</button>
+    <button mat-button routerLink="/search-user"> Pesquisar por Usuário</button>
+    <button mat-button routerLink="/search-question"> Pesquisar por Questão</button>
+
   
   </div>
