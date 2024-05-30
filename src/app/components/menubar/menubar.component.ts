@@ -6,10 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./menubar.component.css']
 })
 export class MenubarComponent implements OnInit {
+  menuActive = false;
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  toggleMenu(): void {
+    this.menuActive = !this.menuActive;
+  }
 }

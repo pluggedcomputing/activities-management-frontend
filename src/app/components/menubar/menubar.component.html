@@ -4,13 +4,16 @@
     <mat-icon>home</mat-icon>
   </button>
 
-    <mat-menu #aboveMenu="matMenu" yPosition="above">
-    </mat-menu>
-    <span class="example-spacer"></span>
+  <mat-menu #aboveMenu="matMenu" yPosition="above">
+  </mat-menu>
+  <span class="example-spacer"></span>
   
-    <button mat-button routerLink="/statistics-binary"> Listar Todas as Respostas</button>
-    <button mat-button routerLink="/search-user"> Pesquisar por Usuário</button>
-    <button mat-button routerLink="/search-question"> Pesquisar por Questão</button>
-
+  <button class="menu-toggle-button" (click)="toggleMenu()"><mat-icon>menu</mat-icon></button>
   
+  <div class="options-menu" [class.active]="menuActive">
+    <button mat-button routerLink="/statistics-binary">Listar Todas as Respostas</button>
+    <button mat-button routerLink="/search-user">Pesquisar por Usuário</button>
+    <button mat-button routerLink="/search-question">Pesquisar por Questão</button>
   </div>
+  
+</div>
