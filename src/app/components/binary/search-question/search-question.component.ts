@@ -1,6 +1,6 @@
 // Importando dependências necessárias do Angular
 import { Component, OnInit } from '@angular/core';
-import { ResponsesBinaryService } from 'src/app/service/responses-binary/responses-binary.service';
+import { ResponsesBinaryService } from 'src/app/service/response/responses-binary.service';
 import { Question } from 'src/app/models/question.model';
 import { QuestionStatistics } from 'src/app/models/questionStatistics';
 
