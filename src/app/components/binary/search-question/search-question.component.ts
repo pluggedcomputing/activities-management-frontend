@@ -1,6 +1,6 @@
 // Importando dependências necessárias do Angular
 import { Component, OnInit } from '@angular/core';
-import { ResponsesBinaryService } from 'src/app/service/responses-binary/responses-binary.service';
+import { ResponsesBinaryService } from 'src/app/service/response/responses-binary.service';
 import { Question } from 'src/app/models/question.model';
 import { QuestionStatistics } from 'src/app/models/questionStatistics';
 
@@ -38,6 +38,9 @@ export class SearchQuestionComponent implements OnInit {
   // Variáveis para armazenar as fases e atividades selecionadas pelo usuário
   selectedFase = "";
   selectedAtividade = "";
+
+  // Váriavel para mostrar ou não o menu de datas
+  dataOn = false;
 
   // Opções para as fases e atividades
   allFases: fase[] = [

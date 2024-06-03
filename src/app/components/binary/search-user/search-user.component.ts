@@ -1,26 +1,29 @@
 // Importando dependências necessárias do Angular
 import { Component, OnInit } from '@angular/core';
-import { ResponsesBinaryService } from 'src/app/service/responses-binary/responses-binary.service';
+import { ResponsesBinaryService } from 'src/app/service/response/responses-binary.service';
 import { Question } from 'src/app/models/question.model';
 import { UserStatistics } from 'src/app/models/userStatistics';
 
-// Componente Angular para pesquisa de usuário
+
+
+
 @Component({
-  selector: 'app-search-user', // Seletor do componente
-  templateUrl: './search-user.component.html', // Template HTML associado ao componente
-  styleUrls: ['./search-user.component.css'] // Estilos CSS associados ao componente
+  selector: 'app-search-user', 
+  templateUrl: './search-user.component.html', 
+  styleUrls: ['./search-user.component.css'],
 })
 export class SearchUserComponent implements OnInit {
 
-  idUser = "";
+  userID = "";
   idApp = "WEB-BINARIOS 1.0";
   userQuestions: any[] = [];
   errorMessage: string = "";
   statisticsUser: UserStatistics = new UserStatistics;
   startDate = null;
   endDate = null;
+  dataOn = false;
 
-  constructor(private responseBinary: ResponsesBinaryService) { }
+  constructor(private responseBinaryService: ResponsesBinaryService) { }
 
   // Método do ciclo de vida do componente, chamado após a inicialização do componente
   ngOnInit(): void {
@@ -29,7 +32,7 @@ export class SearchUserComponent implements OnInit {
   // Método para realizar a pesquisa do usuário
   searchUser() {
     // Verifica se o ID do usuário está preenchido
-    if (this.idUser.trim() !== "") {
+    if (this.userID.trim() !== "") {
       // Verifica se há uma data específica
       if (this.startDate != null && this.endDate != null) {
         this.getQuestionOfUserWithDate();
@@ -47,7 +50,7 @@ export class SearchUserComponent implements OnInit {
 
   // Método para buscar as perguntas do usuário sem uma data específica
   getQuestionOfUser() {
-    this.responseBinary.getQuestionsOfUser(this.idUser, this.idApp).subscribe(
+    this.responseBinaryService.getQuestionsOfUser(this.userID, this.idApp).subscribe(
       // Callback de sucesso
       (questions: Question[]) => {
         // Verifica se há perguntas retornadas
@@ -76,7 +79,7 @@ export class SearchUserComponent implements OnInit {
   // Método para buscar as perguntas do usuário com uma data específica
   getQuestionOfUserWithDate() {
     if (this.startDate != null && this.endDate != null) {
-      this.responseBinary.getQuestionsOfUserWithDate(this.idUser, this.idApp, this.startDate, this.endDate).subscribe(
+      this.responseBinaryService.getQuestionsOfUserWithDate(this.userID, this.idApp, this.startDate, this.endDate).subscribe(
         // Callback de sucesso
         (questions: Question[]) => {
           // Verifica se há perguntas retornadas
@@ -105,7 +108,7 @@ export class SearchUserComponent implements OnInit {
 
   // Método para buscar as estatísticas do usuário sem uma data específica
   getStatics() {
-    this.responseBinary.getStatisticsUser(this.idUser, this.idApp).subscribe(
+    this.responseBinaryService.getStatisticsUser(this.userID, this.idApp).subscribe(
       // Callback de sucesso
       (userStatistics: UserStatistics) => {
         // Atribui as estatísticas do usuário retornado pelo serviço à variável statisticsUser
@@ -128,7 +131,7 @@ export class SearchUserComponent implements OnInit {
   // Método para buscar as estatísticas do usuário com uma data específica
   getStaticsWithDate() {
     if (this.startDate != null && this.endDate != null) {
-      this.responseBinary.getStatisticsUserWithDate(this.idUser, this.idApp, this.startDate, this.endDate).subscribe(
+      this.responseBinaryService.getStatisticsUserWithDate(this.userID, this.idApp, this.startDate, this.endDate).subscribe(
         // Callback de sucesso
         (userStatistics: UserStatistics) => {
           // Atribui as estatísticas do usuário retornado pelo serviço à variável statisticsUser

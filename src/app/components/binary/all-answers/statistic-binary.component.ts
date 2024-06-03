@@ -1,6 +1,6 @@
 // Importando dependências necessárias do Angular
 import { Component, OnInit } from '@angular/core';
-import { ResponsesBinaryService } from 'src/app/service/responses-binary/responses-binary.service';
+import { ResponsesBinaryService } from 'src/app/service/response/responses-binary.service';
 
 
 // Componente Angular para exibição de estatísticas de questões binárias
@@ -15,7 +15,10 @@ export class StatisticBinaryComponent implements OnInit {
   questions: any[] = [];
   filteredQuestions: any[] = [];
   searchTerm = '';
-  selectedOrder = 'dateResponse';
+  selectedOrder = 'phaseActivity';
+  dataOn = true;
+  startDate = null;
+  endDate = null;
 
   constructor(private responseBinary: ResponsesBinaryService) { }
 

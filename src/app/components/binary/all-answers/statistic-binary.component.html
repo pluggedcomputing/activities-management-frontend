@@ -1,67 +1,74 @@
 <app-menubar></app-menubar>
 <br>
 <div class="title">
-<h1>Todas as respostas</h1>
+  <h1>Todas as respostas</h1>
 </div>
+
 <div class="container-search">
   <div class="content">
     <div class="div-data">
-    <br>
-    <a>Filtrar por:</a>
-  </div>
-    <select [(ngModel)]="selectedOrder">
+      <h5 for="filter-select">Filtrar por:</h5>
+    </div>
+    <select id="filter-select" [(ngModel)]="selectedOrder" >
       <option value="dateResponse">Data de Envio</option>
       <option value="idApp">Aplicação</option>
-      <option value="phaseActivity">Fase </option>
+      <option value="phaseActivity">Fase</option>
       <option value="numberActivity">Atividade</option>
       <option value="idUser">Usuário</option>
     </select>
+
+    <div *ngIf="selectedOrder === 'dateResponse' "  class="date-filter-container">  
+      <h5>Data Inicial:</h5>
+      <input type="date" [(ngModel)]="startDate" placeholder="Data inicial">
+      <br>
+      <h5>Data Final:</h5>
+      <input type="date" [(ngModel)]="endDate" placeholder="Data final">
+    </div>
     <br>
-    <input type="text" [(ngModel)]="searchTerm" placeholder="Pesquisar...">
-    <br>
+    
+    <input *ngIf=" selectedOrder != 'dateResponse' " type="text" [(ngModel)]="searchTerm" placeholder="Pesquisar...">
+    
     <button (click)="filterQuestions()" class="filter-button">Filtrar</button>
-    <br>
   </div>
-
-
-
 </div>
-<div *ngIf="questions.length == 0" class="warning-noserver">
+
+
+
+<div *ngIf="questions.length === 0" class="warning-noserver">
   <h2>Não foi possível se conectar ao servidor!</h2>
-  <mat-progress-bar  mode="indeterminate"></mat-progress-bar>
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
 </div>
 
-
-<div  *ngIf="questions.length > 0" class="container-responses">
+<div *ngIf="questions.length > 0" class="container-responses">
   <div class="content">
-  <table class="answers-table">
-    <thead>
-      <tr>
-        <th>Aplicação</th>
-        <th>Fase</th>
-        <th>Atividade</th>
-        <th>Usuário</th>
-        <th>Resposta do Usuário</th>
-        <th>Resposta Esperada</th>
-        <th>Está Correto</th>
-        <th>Data e Hora da Resposta</th>
-        <th>Tipo de Questão</th>
-      </tr>
-    </thead>
-      <!-- Utilize o pipe orderBy no ngFor para ordenar as respostas -->
-      <tr *ngFor="let question of filteredQuestions" class="answer-item">
-        <!-- Exibir as informações das respostas aqui -->
-        <td>{{ question.idApp }}</td>
-        <td>{{ question.phaseActivity }}</td>
-        <td>{{ question.numberActivity }}</td>
-        <td>{{ question.idUser }}</td>
-        <td>{{ question.userResponse }}</td>
-        <td>{{ question.expectedResponse }}</td>
-        <td>{{ question.isCorrect ? 'Sim' : 'Não' }}</td>
-        <td>{{ question.dateResponse | date:'dd/MM/yyyy HH:mm:ss' }}</td>
-        <td>{{ question.typeOfQuestion }}</td>
-      </tr>
-  </table>
-
+    <table class="answers-table">
+      <thead>
+        <tr>
+          <th>Aplicação</th>
+          <th>Fase</th>
+          <th>Atividade</th>
+          <th>Usuário</th>
+          <th>Resposta do Usuário</th>
+          <th>Resposta Esperada</th>
+          <th>Está Correto</th>
+          <th>Data e Hora da Resposta</th>
+          <th>Tipo de Questão</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Utilize o pipe orderBy no ngFor para ordenar as respostas -->
+        <tr *ngFor="let question of filteredQuestions" class="answer-item">
+          <td>{{ question.idApp }}</td>
+          <td>{{ question.phase }}</td>
+          <td>{{ question.activity }}</td>
+          <td>{{ question.userID }}</td>
+          <td>{{ question.userResponse }}</td>
+          <td>{{ question.expectedResponse }}</td>
+          <td>{{ question.isCorrect ? 'Sim' : 'Não' }}</td>
+          <td>{{ question.dateResponse | date:'dd/MM/yyyy HH:mm:ss' }}</td>
+          <td>{{ question.typeOfQuestion }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>

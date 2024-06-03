@@ -1,8 +1,11 @@
 <app-menubar></app-menubar>
 <br>
+
 <div class="title">
   <h1>Pesquisa por questão</h1>
 </div>
+
+
 <div class="container-search">
   <div class="content">
     <mat-form-field>
@@ -19,19 +22,26 @@
         <mat-option *ngFor="let atividade of allAtividades" [value]="atividade.value">{{ atividade.viewValue }}</mat-option>
       </mat-select>
     </mat-form-field>
-    <br>
-    <br>
-    <div class="date-filter-container">
-      <h6>Data Inicial:</h6>
+  </div>
+
+    <div (click)="dataOn=!dataOn" class="dataOn">
+      <h4>Filtrar respostas por périodo</h4> 
+      <mat-icon>date_range</mat-icon>
+    </div>
+
+    <div *ngIf="dataOn" class="date-filter-container">  
+      <h5>Data Inicial:</h5>
       <input type="date" [(ngModel)]="startDate" placeholder="Data inicial">
-      <h6>Data Final:</h6>
+      <br>
+      <h5>Data Final:</h5>
       <input type="date" [(ngModel)]="endDate" placeholder="Data final">
     </div>
-    <br><br>
+    <br>
+    
     <button (click)="searchQuestion();" class="filter-button">Pesquisar</button>
     <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
   </div>
-</div>
+
 
 
 <div *ngIf="questionSearch.length > 0" class="container-user-statistics">
@@ -77,9 +87,9 @@
       <tbody>
         <tr *ngFor="let question of questionSearch" class="answer-item">
           <td>{{ question.idApp }}</td>
-          <td>{{ question.phaseActivity }}</td>
-          <td>{{ question.numberActivity }}</td>
-          <td>{{ question.idUser }}</td>
+          <td>{{ question.phase }}</td>
+          <td>{{ question.activity }}</td>
+          <td>{{ question.userID }}</td>
           <td>{{ question.userResponse }}</td>
           <td>{{ question.expectedResponse }}</td>
           <td>{{ question.isCorrect ? 'Sim' : 'Não' }}</td>
