@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Question } from 'src/app/models/question.model';
-import { UserStatistics } from 'src/app/models/userStatistics';
 import { QuestionStatistics } from 'src/app/models/questionStatistics';
+import { UserStatistics } from 'src/app/models/userStatistics';
 
 @Injectable({
   providedIn: 'root'
@@ -19,22 +19,42 @@ export class ResponsesBinaryService {
   }
 
   // Pega todas as respostas de uma questão específica
-  getSearchQuestion(atividade: string, fase: string){
-    return this.httpClient.get<Question[]>(`${this.API}/getSearchResponse?fase=${fase}&atividade=${atividade}`)
+  getSearchQuestion(activity: string, phase: string){
+    return this.httpClient.get<Question[]>(`${this.API}/getSearchResponse?phase=${phase}&activity=${activity}`)
   }
 
   // Pega todas as respostas de uma questão específica em uma data específica
-  getSearchQuestionWithDate(atividade: string, fase: string, startDate: Date, endDate: Date){
-    return this.httpClient.get<Question[]>(`${this.API}/getSearchResponse?fase=${fase}&atividade=${atividade}&startDate=${startDate}&endDate=${endDate}`)
+  getSearchQuestionWithDate(activity: string, phase: string, startDate: Date, endDate: Date){
+    return this.httpClient.get<Question[]>(`${this.API}/getSearchResponse?phase=${phase}&activity=${activity}&startDate=${startDate}&endDate=${endDate}`)
   }
 
   // Pega todas as estastísticas de uma questão específica
-  getStatisticsResponse(atividade: string, fase: string){
-    return this.httpClient.get<QuestionStatistics>(`${this.API}/getStatisticsResponse?fase=${fase}&atividade=${atividade}`)
+  getStatisticsResponse(activity: string, phase: string){
+    return this.httpClient.get<QuestionStatistics>(`${this.API}/getStatisticsResponse?phase=${phase}&activity=${activity}`)
   }
 
   // Pega todas as estastísticas de uma questão específica em uma data específica
-  getStatisticsResponseWithDate(atividade: string, fase: string, startDate: Date, endDate: Date){
-    return this.httpClient.get<QuestionStatistics>(`${this.API}/getStatisticsResponse?fase=${fase}&atividade=${atividade}&startDate=${startDate}&endDate=${endDate}`)
+  getStatisticsResponseWithDate(activity: string, phase: string, startDate: Date, endDate: Date){
+    return this.httpClient.get<QuestionStatistics>(`${this.API}/getStatisticsResponse?phase=${phase}&activity=${activity}&startDate=${startDate}&endDate=${endDate}`)
   }
+
+    // Pega todas as questões de um usuário específico.
+    getQuestionsOfUser(userID: string, idApp: string) {
+      return this.httpClient.get<Question[]>(`${this.API}/getUniqueUser?userID=${userID}&idApp=${idApp}`);
+    }
+  
+    // Pega todas as questões de um usuário específico e em uma data específica.
+    getQuestionsOfUserWithDate(userID: string, idApp: string, startDate: Date, endDate: Date) {
+      return this.httpClient.get<Question[]>(`${this.API}/getUniqueUser?userID=${userID}&idApp=${idApp}&startDate=${startDate}&endDate=${endDate}`);
+    }
+  
+    // Pega todas as estastísticas de um usuário específico.
+    getStatisticsUser(userID: string, idApp: string){
+      return this.httpClient.get<UserStatistics>(`${this.API}/getStatisticsUser?userID=${userID}&idApp=${idApp}`);
+    }
+  
+    // Pega todas as estastísticas de um usuário específico em uma data específica.
+    getStatisticsUserWithDate(userID: string, idApp: string, startDate: Date, endDate: Date){
+      return this.httpClient.get<UserStatistics>(`${this.API}/getStatisticsUser?userID=${userID}&idApp=${idApp}&startDate=${startDate}&endDate=${endDate}`);
+    }
 }

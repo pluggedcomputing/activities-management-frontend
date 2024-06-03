@@ -87,9 +87,9 @@
       <tbody>
         <tr *ngFor="let question of questionSearch" class="answer-item">
           <td>{{ question.idApp }}</td>
-          <td>{{ question.phaseActivity }}</td>
-          <td>{{ question.numberActivity }}</td>
-          <td>{{ question.idUser }}</td>
+          <td>{{ question.phase }}</td>
+          <td>{{ question.activity }}</td>
+          <td>{{ question.userID }}</td>
           <td>{{ question.userResponse }}</td>
           <td>{{ question.expectedResponse }}</td>
           <td>{{ question.isCorrect ? 'Sim' : 'Não' }}</td>
