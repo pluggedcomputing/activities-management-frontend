@@ -12,9 +12,9 @@
     <select id="filter-select" [(ngModel)]="selectedOrder" >
       <option value="dateResponse">Data de Envio</option>
       <option value="idApp">Aplicação</option>
-      <option value="phaseActivity">Fase</option>
-      <option value="numberActivity">Atividade</option>
-      <option value="idUser">Usuário</option>
+      <option value="phase">Fase</option>
+      <option value="activity">Atividade</option>
+      <option value="userID">Usuário</option>
     </select>
 
     <div *ngIf="selectedOrder === 'dateResponse' "  class="date-filter-container">  
