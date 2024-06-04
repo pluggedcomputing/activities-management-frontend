@@ -25,7 +25,6 @@ export class StatisticBinaryComponent implements OnInit {
     this.responseBinary.getAllQuestion().subscribe(
       (data: any) => {
         this.questions = data;
-        this.orderQuestions();
         this.filterQuestions();
       },
       error => {
@@ -63,22 +62,6 @@ export class StatisticBinaryComponent implements OnInit {
         }
       );
     }
-  }
-  
-
-  orderQuestions(): void {
-    if (this.selectedOrder) {
-      this.questions.sort((a, b) => {
-        const dateA = new Date(a[this.selectedOrder]);
-        const dateB = new Date(b[this.selectedOrder]);
-        return dateB.getTime() - dateA.getTime();
-      });
-    }
-  }
-
-  clearSearch(): void {
-    this.searchTerm = '';
-    this.selectedOrder = 'phaseActivity'; 
-    this.filterQuestions();
+    this.filteredQuestions.reverse(); // Coloca as respostas por ordem de respostas mais recente
   }
 }
