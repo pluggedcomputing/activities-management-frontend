@@ -26,7 +26,7 @@ export class SearchQuestionComponent implements OnInit {
   startDate = null;
   endDate = null;
 
-  // Variável da estastística das respostass
+  // Variável das estastísticas das respostass
   questionStatistics: QuestionStatistics = new QuestionStatistics();
 
   // Mensagem de erro
@@ -64,7 +64,6 @@ export class SearchQuestionComponent implements OnInit {
 
   constructor(private responseBinary: ResponsesBinaryService) { }
 
-  // Método do ciclo de vida do componente, chamado após a inicialização do componente
   ngOnInit(): void {
   }
 
@@ -73,14 +72,16 @@ export class SearchQuestionComponent implements OnInit {
     // Verifica se há alguma fase ou atividade selecionada
     if (this.selectedAtividade.trim() !== "" || this.selectedFase.trim() !== "" ) {
       // Verifica se há uma data específica
-      if (this.startDate != null && this.endDate != null) {
+      if (this.startDate != null && this.endDate != null) {      
         this.getQuestionWithDate();
         this.getStaticsWithDate();
-      } else {
+
+      } else {     
         this.getQuestion();
         this.getStatics();
+
       }
-    } else {
+    } else {  
       // Limpa a lista de respostas da questão e exibe a mensagem de erro se a fase ou a atividade não estiver preenchido
       this.questionSearch = [];
       this.errorMessage = "Por favor, selecione alguma FASE e ATIVIDADE!";
@@ -103,6 +104,7 @@ export class SearchQuestionComponent implements OnInit {
           this.questionSearch = [];
           this.errorMessage = "Nenhuma resposta encontrada para a FASE e ATIVIDADE especificadas.";
         }
+        this.questionSearch.reverse(); // Coloca as respostas por ordem de respostas mais recente
         console.log(this.questionSearch);
       },
       // Callback de erro
@@ -132,6 +134,7 @@ export class SearchQuestionComponent implements OnInit {
             this.questionSearch = [];
             this.errorMessage = "Nenhuma respostas encontrada para essa FASE, ATIVIDADE e DATA especificados.";
           }
+          this.questionSearch.reverse(); // Coloca as respostas por ordem de respostas mais recente
           console.log(this.questionSearch);
         },
         // Callback de erro
