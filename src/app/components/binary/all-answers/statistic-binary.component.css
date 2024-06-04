@@ -4,11 +4,6 @@ body {
   margin: 0;
 }
 
-
-
-
-
-
 /* Typography */
 
 h5{
@@ -35,8 +30,7 @@ h2, th {
 
 /* Buttons */
 
-.filter-button {
-  display: block;
+.filter-button {  
   width: 100%;
   padding: 10px 0;
   background-color: #007bff;
@@ -137,8 +131,8 @@ select {
 
 /* Tables */
 
-
 .answers-table {
+  padding: 15px;
   width: 100%;
   border-collapse: collapse;
 }
@@ -150,9 +144,13 @@ select {
   text-align: center;
 }
 
+.answers-table th, .answers-table td {
+  padding: 15px;
+}
+
 .answers-table td {
-  border: 1px solid #ccc;
   padding: 10px;
+  border: 1px solid #ddd;
 }
 
 .answers-table tbody tr:nth-child(even) {
@@ -174,4 +172,3 @@ select {
   padding: 2px;
   font-size: small;
 }
-

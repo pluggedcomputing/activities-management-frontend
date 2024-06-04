@@ -37,9 +37,11 @@ export class SearchUserComponent implements OnInit {
       if (this.startDate != null && this.endDate != null) {
         this.getQuestionOfUserWithDate();
         this.getStaticsWithDate();
+
       } else {
         this.getQuestionOfUser();
         this.getStatics();
+
       }
     } else {
       // Limpa a lista de perguntas do usuário e exibe a mensagem de erro se o ID do usuário não estiver preenchido
@@ -64,6 +66,7 @@ export class SearchUserComponent implements OnInit {
           this.userQuestions = [];
           this.errorMessage = "Nenhuma pergunta encontrada para o ID de usuário especificado.";
         }
+        this.userQuestions.reverse(); // Coloca as respostas por ordem de respostas mais recente
         console.log(this.userQuestions);
       },
       // Callback de erro
@@ -93,6 +96,7 @@ export class SearchUserComponent implements OnInit {
             this.userQuestions = [];
             this.errorMessage = "Nenhuma pergunta encontrada para o ID de usuário especificado.";
           }
+          this.userQuestions.reverse(); // Coloca as respostas por ordem de respostas mais recente
           console.log(this.userQuestions);
         },
         // Callback de erro
