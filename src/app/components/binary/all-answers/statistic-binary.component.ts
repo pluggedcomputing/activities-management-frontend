@@ -15,7 +15,7 @@ export class StatisticBinaryComponent implements OnInit {
   questions: any[] = [];
   filteredQuestions: any[] = [];
   searchTerm = '';
-  selectedOrder = 'phaseActivity';
+  selectedOrder: string = 'phaseActivity';
   dataOn = true;
   startDate = null;
   endDate = null;
@@ -43,17 +43,22 @@ export class StatisticBinaryComponent implements OnInit {
     );
   }
 
-  // Método para filtrar as questões com base no termo de pesquisa e na ordem selecionada
-  filterQuestions(): void {
-    if (this.selectedOrder && this.searchTerm.trim() !== '') {
-      // Filtra as questões com base no termo de pesquisa e na ordem selecionada
-      this.filteredQuestions = this.questions.filter(question =>
-        question[this.selectedOrder].toString().toLowerCase().includes(this.searchTerm.toLowerCase())
-      );
-    } else {
-      this.filteredQuestions = this.questions.slice(); // Se não houver termo de pesquisa, retorna todas as questões
-    }
+// Método para filtrar as questões com base no termo de pesquisa e na ordem selecionada
+filterQuestions(): void {
+  if (this.questions && this.selectedOrder && this.searchTerm.trim() !== '') {
+    // Filtra as questões com base no termo de pesquisa e na ordem selecionada
+    this.filteredQuestions = this.questions.filter(question => {
+      const value = question[this.selectedOrder];
+      return value !== undefined && value !== null &&
+             value.toString().toLowerCase().includes(this.searchTerm.toLowerCase());
+    });
+  } else {
+    // Se não houver termo de pesquisa ou selectedOrder, retorna todas as questões
+    this.filteredQuestions = this.questions ? this.questions.slice() : [];
   }
+}
+
+
 
   // Método para ordenar as questões com base na ordem selecionada
   orderQuestions(): void {
