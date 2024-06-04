@@ -33,20 +33,20 @@ export class StatisticBinaryComponent implements OnInit {
       // Callback de sucesso
       (data: any) => {
         this.questions = data;
-        this.orderQuestions(); // Ordena as questões por data após o carregamento
+        this.questions.reverse(); // deixa as respostas com as mais recentes em cima
         this.filterQuestions(); // Aplica os filtros
       },
       // Callback de erro
       error => {
-        console.error('Erro ao buscar detalhes da atividade:', error);
+        console.error('ro ao buscar detalhes da atividade:', error);
       }
     );
   }
 
 // Método para filtrar as questões com base no termo de pesquisa e na ordem selecionada
 filterQuestions(): void {
+   // Filtra as questões com base no termo de pesquisa e na ordem selecionada
   if (this.questions && this.selectedOrder && this.searchTerm.trim() !== '') {
-    // Filtra as questões com base no termo de pesquisa e na ordem selecionada
     this.filteredQuestions = this.questions.filter(question => {
       const value = question[this.selectedOrder];
       return value !== undefined && value !== null &&
@@ -60,20 +60,4 @@ filterQuestions(): void {
 
 
 
-  // Método para ordenar as questões com base na ordem selecionada
-  orderQuestions(): void {
-    this.questions.sort((a, b) => {
-      // Converte as datas para objetos Date e compara para ordenar
-      const dateA = new Date(a[this.selectedOrder]);
-      const dateB = new Date(b[this.selectedOrder]);
-      return dateB.getTime() - dateA.getTime(); // Retorna a diferença entre as datas
-    });
-  }
-
-  // Método para limpar o termo de pesquisa e a ordem selecionada
-  clearSearch(): void {
-    this.searchTerm = '';
-    this.selectedOrder = '';
-    this.filterQuestions(); // Aplica os filtros novamente para mostrar todas as questões
-  }
 }
