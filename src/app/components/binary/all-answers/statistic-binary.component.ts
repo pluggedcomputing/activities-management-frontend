@@ -25,8 +25,8 @@ export class StatisticBinaryComponent implements OnInit {
     this.responseBinary.getAllQuestion().subscribe(
       (data: any) => {
         this.questions = data;
-        this.orderQuestions();
         this.filterQuestions();
+        this.filteredQuestions.reverse(); // Coloca as respostas por ordem de respostas mais recente
       },
       error => {
         console.error('Erro ao buscar detalhes da atividade:', error);
@@ -49,7 +49,6 @@ export class StatisticBinaryComponent implements OnInit {
       this.responseBinary.getAllQuestionWithDate(this.startDate, this.endDate).subscribe(
         (data: any) => {
           this.questions = data;
-          this.orderQuestions();
           // Aplicar novamente o filtro de searchTerm após atualizar as questões
           if (this.searchTerm.trim() !== '') {
             this.filteredQuestions = this.questions.filter(question =>
@@ -67,20 +66,4 @@ export class StatisticBinaryComponent implements OnInit {
     }
   }
   
-
-  orderQuestions(): void {
-    if (this.selectedOrder) {
-      this.questions.sort((a, b) => {
-        const dateA = new Date(a[this.selectedOrder]);
-        const dateB = new Date(b[this.selectedOrder]);
-        return dateB.getTime() - dateA.getTime();
-      });
-    }
-  }
-
-  clearSearch(): void {
-    this.searchTerm = '';
-    this.selectedOrder = 'phaseActivity'; 
-    this.filterQuestions();
-  }
 }
