@@ -5,6 +5,20 @@ body {
   
 }
 
+.instruction {
+  font-size: 14px; /* Tamanho da fonte */
+  color: #666; /* Cor do texto */
+  margin-bottom: 0; /* Margem inferior */
+}
+
+.custom-form-field {
+  width: 100%; /* Faz o campo ocupar 100% da largura disponível */
+}
+
+.autocomplete-input{
+  margin-top: 0;
+  padding-top: 0;
+}
 
 .title{
   text-align: center;

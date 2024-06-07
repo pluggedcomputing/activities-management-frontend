@@ -1,5 +1,5 @@
 // Importando dependências necessárias do Angular
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ResponsesBinaryService } from 'src/app/service/response/responses-binary.service';
 import { Question } from 'src/app/models/question.model';
 import { UserStatistics } from 'src/app/models/userStatistics';
@@ -22,12 +22,25 @@ export class SearchUserComponent implements OnInit {
   startDate = null;
   endDate = null;
   dataOn = false;
+  parentOptions: string[] = ['Alpha', 'Beta', 'Gamma', 'Delta'];
+  @ViewChild('autocompleteInput') autocompleteInput!: ElementRef;
 
   constructor(private responseBinaryService: ResponsesBinaryService) { }
 
   // Método do ciclo de vida do componente, chamado após a inicialização do componente
   ngOnInit(): void {
   }
+
+
+  filterButtonClick(autocompleteValue: string) {
+  if (autocompleteValue) {
+    console.log('Valor do autocomplete-input:', autocompleteValue);
+    // Adicione aqui a lógica para pesquisar o usuário com base no valor do autocomplete, se necessário
+  } else {
+    console.log('O valor do autocompleteInput não está definido.');
+  }
+}
+  
 
   // Método para realizar a pesquisa do usuário
   searchUser() {

@@ -7,28 +7,29 @@
 <div class="container-search">
 
   <div class="content">
-  <br>
-  <input type="text" [(ngModel)]="userID" placeholder="Digite o código do usuário ou seu e-mail">
-  <br>
+    <br>
+    <p class="instruction">Digite para filtrar as opções:</p>
+    <autocomplete-input #autocompleteInput class="autocomplete-input" [options]="parentOptions"></autocomplete-input>
   </div>
-
+  
   <div (click)="dataOn=!dataOn" class="dataOn">
-    <h4>Filtrar respostas por périodo</h4>    
+    <h4>Filtrar respostas por período</h4>    
     <mat-icon>date_range</mat-icon>
   </div>
-
+  
   <div *ngIf="dataOn" class="date-filter-container">  
     <h5>Data Inicial:</h5>
-    <input type="date" [(ngModel)]="startDate" placeholder="Data inicial">
+    <input type="date" [(ngModel)]="startDate"  name="startDate" placeholder="Data inicial">
     <br>
     <h5>Data Final:</h5>
-    <input type="date" [(ngModel)]="endDate" placeholder="Data final">
+    <input type="date" [(ngModel)]="endDate"  name="endDate" placeholder="Data final">
   </div>
   <br>
   
-  <button (click)="searchUser();" class="filter-button">Pesquisar</button>
-
+  <button (click)="filterButtonClick(autocompleteInput.value)" class="filter-button">Pesquisar</button>
+  
   <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+  
  
 </div>
 

@@ -21,6 +21,11 @@ import { MatProgressBarModule } from '@angular/material/progress-bar'
 import { SearchUserComponent } from './components/binary/search-user/search-user.component';
 import { SearchQuestionComponent } from './components/binary/search-question/search-question.component';
 import { MenubarComponent } from './components/menubar/menubar.component';
+import { AutocompleteComponent } from './autocomplete/autocomplete.component';
+import { CommonModule } from '@angular/common';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [
@@ -30,6 +35,10 @@ import { MenubarComponent } from './components/menubar/menubar.component';
     SearchUserComponent,
     SearchQuestionComponent,
     MenubarComponent,
+    AutocompleteComponent,
+
+    
+    
     
   ],
   imports: [
@@ -49,7 +58,13 @@ import { MenubarComponent } from './components/menubar/menubar.component';
     MatSelectModule,
     MatDatepickerModule,
     MatSnackBarModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    ReactiveFormsModule,
+    CommonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatAutocompleteModule,
+
     
   ],
   providers: [],
