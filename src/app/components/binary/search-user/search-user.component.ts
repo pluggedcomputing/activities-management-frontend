@@ -1,8 +1,10 @@
 // Importando dependências necessárias do Angular
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ResponsesBinaryService } from 'src/app/service/response/responses-binary.service';
+import { UserService } from 'src/app/service/user/user.service';
 import { Question } from 'src/app/models/question.model';
 import { UserStatistics } from 'src/app/models/userStatistics';
+import { User } from 'src/app/models/user.model';
 
 
 
@@ -25,20 +27,33 @@ export class SearchUserComponent implements OnInit {
   parentOptions: string[] = ['Alpha', 'Beta', 'Gamma', 'Delta'];
   @ViewChild('autocompleteInput') autocompleteInput!: ElementRef;
 
-  constructor(private responseBinaryService: ResponsesBinaryService) { }
+  constructor(private responseBinaryService: ResponsesBinaryService, private userService: UserService) { }
 
   // Método do ciclo de vida do componente, chamado após a inicialização do componente
   ngOnInit(): void {
+     this.userService.getAllUserID().subscribe(
+
+      (usersID: string[]) =>  {
+        if (usersID.length > 0){
+          this.parentOptions = usersID;
+          console.log("users: " + this.parentOptions);
+        }
+      },
+
+      (error) => {
+        console.error('Ocorreu um erro ao buscar os usuários no banco:', error);
+        this.parentOptions = [];
+
+      }
+    );
+     
   }
 
 
   filterButtonClick(autocompleteValue: string) {
-  if (autocompleteValue) {
     console.log('Valor do autocomplete-input:', autocompleteValue);
-    // Adicione aqui a lógica para pesquisar o usuário com base no valor do autocomplete, se necessário
-  } else {
-    console.log('O valor do autocompleteInput não está definido.');
-  }
+    this.userID = autocompleteValue;
+    this.searchUser();
 }
   
 
@@ -70,17 +85,16 @@ export class SearchUserComponent implements OnInit {
       (questions: Question[]) => {
         // Verifica se há perguntas retornadas
         if (questions.length > 0) {
-          // Atribui as perguntas do usuário retornado pelo serviço à variável userQuestions
-          this.userQuestions = questions;
-          // Limpa a mensagem de erro, caso exista
-          this.errorMessage = "";
+          this.userQuestions = questions;  // Atribui as perguntas do usuário retornado pelo serviço à variável userQuestions
+          this.userQuestions.reverse(); // Coloca as respostas por ordem de respostas mais recente
+          console.log(this.userQuestions);
         } else {
           // Limpa a lista de perguntas do usuário e exibe a mensagem de erro
           this.userQuestions = [];
           this.errorMessage = "Nenhuma pergunta encontrada para o ID de usuário especificado.";
+          console.log("Quantidade de responses: " + questions.length);
         }
-        this.userQuestions.reverse(); // Coloca as respostas por ordem de respostas mais recente
-        console.log(this.userQuestions);
+        
       },
       // Callback de erro
       (error) => {
