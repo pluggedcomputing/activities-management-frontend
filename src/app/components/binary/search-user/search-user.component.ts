@@ -31,7 +31,7 @@ export class SearchUserComponent implements OnInit {
 
   // Método do ciclo de vida do componente, chamado após a inicialização do componente
   ngOnInit(): void {
-     this.userService.getAllUserID().subscribe(
+     this.userService.getUsers().subscribe(
 
       (usersID: string[]) =>  {
         if (usersID.length > 0){

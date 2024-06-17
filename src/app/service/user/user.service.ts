@@ -12,8 +12,8 @@ export class UserService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getAllUserID(){
-    return this.httpClient.get<string[]>(`${this.API}/getAllUserId`);
+  getUsers(){
+    return this.httpClient.get<string[]>(`${this.API}/getUsers`);
   }
 
 
