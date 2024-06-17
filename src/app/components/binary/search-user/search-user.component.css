@@ -5,11 +5,6 @@ body {
   
 }
 
-.instruction {
-  font-size: 20px; /* Tamanho da fonte */
-  font-family: Roboto, "Helvetica Neue", sans-serif; /* Fonte */
-  margin-bottom: 0; /* Margem inferior */
-}
 
 .custom-form-field {
   width: 100%; /* Faz o campo ocupar 100% da largura disponível */

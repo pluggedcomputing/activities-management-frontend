@@ -1,5 +1,5 @@
   <mat-form-field>
-    <input matInput #input [formControl]="myControl" (input)="filter()" [matAutocomplete]="auto">
+    <input matInput #input [formControl]="myControl" (input)="filter()" [matAutocomplete]="auto" placeholder="Digite o código do usuário ou seu e-mail">
     <mat-autocomplete #auto="matAutocomplete">
       <mat-option *ngFor="let option of filteredOptions" [value]="option">
         {{ option }}

@@ -21,7 +21,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar'
 import { SearchUserComponent } from './components/binary/search-user/search-user.component';
 import { SearchQuestionComponent } from './components/binary/search-question/search-question.component';
 import { MenubarComponent } from './components/menubar/menubar.component';
-import { AutocompleteComponent } from './autocomplete/autocomplete.component';
+import { AutocompleteComponent } from './components/autocomplete/autocomplete.component';
 import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';

@@ -16,10 +16,7 @@
 /* Estiliza o campo de entrada */
 input[matInput] {
   font-size: 16px; /* Tamanho da fonte */
-  padding: 8px; /* Padding interno */
-  border: 1px solid #ccc; /* Borda */
-  border-radius: 4px; /* Arredondamento dos cantos */
-  box-shadow: none; /* Remove sombra padrão */
+  padding: 8px;
 }
 
 input[matInput]:focus {

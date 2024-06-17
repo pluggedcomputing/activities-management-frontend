@@ -75,7 +75,7 @@ export class SearchUserComponent implements OnInit {
     } else {
       // Limpa a lista de perguntas do usuário e exibe a mensagem de erro se o ID do usuário não estiver preenchido
       this.userQuestions = [];
-      this.errorMessage = "Por favor, insira um ID de usuário válido.";
+      this.errorMessage = "Por favor, insira um usuário válido.";
     }
   }
 
