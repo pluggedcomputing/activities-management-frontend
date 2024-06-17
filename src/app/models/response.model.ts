@@ -1,4 +1,4 @@
-export class Question {
+export class Response {
     public userID: string;
     public idApp: string;
     public phase: string;

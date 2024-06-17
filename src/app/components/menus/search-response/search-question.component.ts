@@ -1,8 +1,8 @@
 // Importando dependências necessárias do Angular
 import { Component, OnInit } from '@angular/core';
-import { ResponsesBinaryService } from 'src/app/service/response/responses-binary.service';
-import { Question } from 'src/app/models/question.model';
-import { QuestionStatistics } from 'src/app/models/questionStatistics';
+import { ResponseService } from 'src/app/service/response/response.service';
+import { Response } from 'src/app/models/response.model';
+import { ResponseStatistics } from 'src/app/models/responseStatistics';
 
 // Definindo interfaces para representar as fases e atividades
 interface fase {
@@ -27,7 +27,7 @@ export class SearchQuestionComponent implements OnInit {
   endDate = null;
 
   // Variável das estastísticas das respostass
-  questionStatistics: QuestionStatistics = new QuestionStatistics();
+  questionStatistics: ResponseStatistics = new ResponseStatistics();
 
   // Mensagem de erro
   errorMessage: string = "";
@@ -62,7 +62,7 @@ export class SearchQuestionComponent implements OnInit {
     {value: "7", viewValue: 'Atividade 7'},
   ];
 
-  constructor(private responseBinary: ResponsesBinaryService) { }
+  constructor(private responseService: ResponseService) { }
 
   ngOnInit(): void {
   }
@@ -90,9 +90,9 @@ export class SearchQuestionComponent implements OnInit {
 
   // Método para buscar as respostas de uma questão sem uma data específica
   getQuestion() {
-    this.responseBinary.getSearchQuestion(this.selectedAtividade,this.selectedFase).subscribe(
+    this.responseService.getSearchQuestion(this.selectedAtividade,this.selectedFase).subscribe(
       // Callback de sucesso
-      (questions: Question[]) => {
+      (questions: Response[]) => {
         // Verifica se há respostas retornadas
         if (questions.length > 0) {
           // Atribui as respostas retornadas pelo serviço à variável questionSearch
@@ -120,9 +120,9 @@ export class SearchQuestionComponent implements OnInit {
   // Método para buscar as respostas de uma questão com uma data específica
   getQuestionWithDate() {
     if (this.startDate != null && this.endDate != null) {
-      this.responseBinary.getSearchQuestionWithDate(this.selectedAtividade, this.selectedFase, this.startDate, this.endDate).subscribe(
+      this.responseService.getSearchQuestionWithDate(this.selectedAtividade, this.selectedFase, this.startDate, this.endDate).subscribe(
         // Callback de sucesso
-        (questions: Question[]) => {
+        (questions: Response[]) => {
           // Verifica se há respostas retornadas
           if (questions.length > 0) {
             // Atribui as respostas da questção retornado pelo serviço à variável questionSearch
@@ -150,9 +150,9 @@ export class SearchQuestionComponent implements OnInit {
 
   // Método para buscar as estatísticas das respostas sem uma data específica
   getStatics() {
-    this.responseBinary.getStatisticsResponse(this.selectedAtividade,this.selectedFase).subscribe(
+    this.responseService.getStatisticsResponse(this.selectedAtividade,this.selectedFase).subscribe(
       // Callback de sucesso
-      (questionStatistics: QuestionStatistics) => {
+      (questionStatistics: ResponseStatistics) => {
         // Atribui as estatísticas das respostas retornado pelo serviço à variável questionStatistics
         this.questionStatistics = questionStatistics;
         console.log(this.questionStatistics);
@@ -163,7 +163,7 @@ export class SearchQuestionComponent implements OnInit {
       (error) => {
         console.error('Ocorreu um erro ao buscar as estatísticas do usuário:', error);
         // Limpa as estatísticas do usuário em caso de erro
-        this.questionStatistics = new QuestionStatistics();
+        this.questionStatistics = new ResponseStatistics();
         // Exibe a mensagem de erro
         this.errorMessage = "Ocorreu um erro ao buscar as estatísticas da questão específicada. Por favor, tente novamente mais tarde.";
       }
@@ -173,9 +173,9 @@ export class SearchQuestionComponent implements OnInit {
   // Método para buscar as estatísticas da questão com uma data específica
   getStaticsWithDate() {
     if (this.startDate != null && this.endDate != null) {
-      this.responseBinary.getStatisticsResponseWithDate(this.selectedAtividade, this.selectedFase, this.startDate, this.endDate).subscribe(
+      this.responseService.getStatisticsResponseWithDate(this.selectedAtividade, this.selectedFase, this.startDate, this.endDate).subscribe(
         // Callback de sucesso
-        (questionStatistics: QuestionStatistics) => {
+        (questionStatistics: ResponseStatistics) => {
           // Atribui as estatísticas da questão retornado pelo serviço à variável questionStatistics
           this.questionStatistics = questionStatistics;
           console.log(this.questionStatistics);
@@ -186,7 +186,7 @@ export class SearchQuestionComponent implements OnInit {
         (error) => {
           console.error('Ocorreu um erro ao buscar as estatísticas da questão específicada:', error);
           // Limpa as estatísticas do usuário em caso de erro
-          this.questionStatistics = new QuestionStatistics();
+          this.questionStatistics = new ResponseStatistics();
           // Exibe a mensagem de erro
           this.errorMessage = "Ocorreu um erro ao buscar as estatísticas da questão específicada. Por favor, tente novamente mais tarde.";
         }

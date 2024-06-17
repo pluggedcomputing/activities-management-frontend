@@ -1,4 +1,4 @@
-export class QuestionStatistics {
+export class ResponseStatistics {
     public quantityAllAnswers: number;
     public quantityCorrectsAnswers: number;
     public quantityWrongsAnswers: number;
