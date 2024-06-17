@@ -6,8 +6,8 @@ body {
 }
 
 .instruction {
-  font-size: 14px; /* Tamanho da fonte */
-  color: #666; /* Cor do texto */
+  font-size: 20px; /* Tamanho da fonte */
+  font-family: Roboto, "Helvetica Neue", sans-serif; /* Fonte */
   margin-bottom: 0; /* Margem inferior */
 }
 
@@ -28,6 +28,7 @@ body {
 .date-filter-container{
   margin-top: 2%;
   text-align: center;
+  
 }
 
 h5{

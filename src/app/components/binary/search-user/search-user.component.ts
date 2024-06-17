@@ -24,7 +24,7 @@ export class SearchUserComponent implements OnInit {
   startDate = null;
   endDate = null;
   dataOn = false;
-  parentOptions: string[] = ['Alpha', 'Beta', 'Gamma', 'Delta'];
+  parentOptions: string[] = [];
   @ViewChild('autocompleteInput') autocompleteInput!: ElementRef;
 
   constructor(private responseBinaryService: ResponsesBinaryService, private userService: UserService) { }
@@ -42,6 +42,7 @@ export class SearchUserComponent implements OnInit {
 
       (error) => {
         console.error('Ocorreu um erro ao buscar os usuários no banco:', error);
+        this.errorMessage = ("Ocorreu um erro ao buscar os usuários no banco");
         this.parentOptions = [];
 
       }
