@@ -35,7 +35,7 @@
 
 
 <div *ngIf="questions.length === 0" class="warning-noserver">
-  <h2>Carregando respostas...</h2>
+  <div *ngIf="errorMessage" class="error-message"><h2>{{ errorMessage }}</h2></div>
   <mat-progress-bar mode="indeterminate"></mat-progress-bar>
 </div>
 

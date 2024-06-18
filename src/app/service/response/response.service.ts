@@ -14,33 +14,33 @@ export class ResponseService {
   constructor(private httpClient: HttpClient) { }
 
   // Pega todas as respostas.
-  getAllQuestion(){
-    return this.httpClient.get(`${this.API}`);
+  getAllQuestion(idApp: string){
+    return this.httpClient.get(`${this.API}?idApp=${idApp}`);
   }
 
    // Pega todas as respostas com datas específicas.
-   getAllQuestionWithDate(startDate: Date, endDate: Date){
-    return this.httpClient.get<Response[]>(`${this.API}?startDate=${startDate}&endDate=${endDate}`);
+   getAllQuestionWithDate(idApp: string, startDate: Date, endDate: Date){
+    return this.httpClient.get<Response[]>(`${this.API}?idApp=${idApp}&startDate=${startDate}&endDate=${endDate}`);
   }
 
   // Pega todas as respostas de uma questão específica
-  getSearchQuestion(activity: string, phase: string){
-    return this.httpClient.get<Response[]>(`${this.API}/getSearchResponse?phase=${phase}&activity=${activity}`)
+  getSearchQuestion(idApp: string, activity: string, phase: string){
+    return this.httpClient.get<Response[]>(`${this.API}/getSearchResponse?idApp=${idApp}&phase=${phase}&activity=${activity}`)
   }
 
   // Pega todas as respostas de uma questão específica em uma data específica
-  getSearchQuestionWithDate(activity: string, phase: string, startDate: Date, endDate: Date){
-    return this.httpClient.get<Response[]>(`${this.API}/getSearchResponse?phase=${phase}&activity=${activity}&startDate=${startDate}&endDate=${endDate}`)
+  getSearchQuestionWithDate(idApp: string, activity: string, phase: string, startDate: Date, endDate: Date){
+    return this.httpClient.get<Response[]>(`${this.API}/getSearchResponse?idApp=${idApp}&phase=${phase}&activity=${activity}&startDate=${startDate}&endDate=${endDate}`)
   }
 
   // Pega todas as estastísticas de uma questão específica
-  getStatisticsResponse(activity: string, phase: string){
-    return this.httpClient.get<ResponseStatistics>(`${this.API}/getStatisticsResponse?phase=${phase}&activity=${activity}`)
+  getStatisticsResponse(idApp: string, activity: string, phase: string){
+    return this.httpClient.get<ResponseStatistics>(`${this.API}/getStatisticsResponse?idApp=${idApp}&phase=${phase}&activity=${activity}`)
   }
 
   // Pega todas as estastísticas de uma questão específica em uma data específica
-  getStatisticsResponseWithDate(activity: string, phase: string, startDate: Date, endDate: Date){
-    return this.httpClient.get<ResponseStatistics>(`${this.API}/getStatisticsResponse?phase=${phase}&activity=${activity}&startDate=${startDate}&endDate=${endDate}`)
+  getStatisticsResponseWithDate(idApp: string, activity: string, phase: string, startDate: Date, endDate: Date){
+    return this.httpClient.get<ResponseStatistics>(`${this.API}/getStatisticsResponse?idApp=${idApp}&phase=${phase}&activity=${activity}&startDate=${startDate}&endDate=${endDate}`)
   }
 
   // Pega todas as questões de um usuário específico.

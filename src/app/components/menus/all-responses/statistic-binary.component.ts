@@ -14,6 +14,8 @@ export class StatisticBinaryComponent implements OnInit {
   dataOn = true;
   startDate: Date | null = null;
   endDate: Date | null = null;
+  errorMessage: string = "";
+  idApp: string = "WEB-BINARIOS 1.0"
 
   constructor(private responseService: ResponseService) { }
 
@@ -22,13 +24,15 @@ export class StatisticBinaryComponent implements OnInit {
   }
 
   loadAllQuestions(): void {
-    this.responseService.getAllQuestion().subscribe(
+    this.errorMessage = "Carregando respostas..."
+    this.responseService.getAllQuestion(this.idApp).subscribe(
       (data: any) => {
         this.questions = data;
         this.filterQuestions();
       },
       error => {
-        console.error('ro ao buscar detalhes da atividade:', error);
+        console.error('erro ao buscar detalhes da atividade:', error);
+        this.errorMessage = "Erro ao carregar respostas!"
       }
     );
   }
@@ -44,7 +48,7 @@ export class StatisticBinaryComponent implements OnInit {
     }
   
     if (this.selectedOrder === "dateResponse" && this.startDate !== null && this.endDate !== null) {
-      this.responseService.getAllQuestionWithDate(this.startDate, this.endDate).subscribe(
+      this.responseService.getAllQuestionWithDate(this.idApp, this.startDate, this.endDate).subscribe(
         (data: any) => {
           this.questions = data;
           // Aplicar novamente o filtro de searchTerm após atualizar as questões
@@ -59,6 +63,7 @@ export class StatisticBinaryComponent implements OnInit {
         },
         error => {
           console.error('Erro ao buscar detalhes da atividade:', error);
+          this.errorMessage = "Erro ao carregar respostas!"
         }
       );
     }

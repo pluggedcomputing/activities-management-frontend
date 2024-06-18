@@ -22,6 +22,9 @@ interface atividade {
 })
 export class SearchQuestionComponent implements OnInit {
 
+  // Id da aplicação a ser pesquisada
+  idApp: string = "WEB-BINARIOS 1.0"
+
   // Variáveis para armazenar datas de início e fim da pesquisa
   startDate = null;
   endDate = null;
@@ -90,7 +93,7 @@ export class SearchQuestionComponent implements OnInit {
 
   // Método para buscar as respostas de uma questão sem uma data específica
   getQuestion() {
-    this.responseService.getSearchQuestion(this.selectedAtividade,this.selectedFase).subscribe(
+    this.responseService.getSearchQuestion(this.idApp,this.selectedAtividade,this.selectedFase).subscribe(
       // Callback de sucesso
       (questions: Response[]) => {
         // Verifica se há respostas retornadas
@@ -120,7 +123,7 @@ export class SearchQuestionComponent implements OnInit {
   // Método para buscar as respostas de uma questão com uma data específica
   getQuestionWithDate() {
     if (this.startDate != null && this.endDate != null) {
-      this.responseService.getSearchQuestionWithDate(this.selectedAtividade, this.selectedFase, this.startDate, this.endDate).subscribe(
+      this.responseService.getSearchQuestionWithDate(this.idApp,this.selectedAtividade, this.selectedFase, this.startDate, this.endDate).subscribe(
         // Callback de sucesso
         (questions: Response[]) => {
           // Verifica se há respostas retornadas
@@ -150,7 +153,7 @@ export class SearchQuestionComponent implements OnInit {
 
   // Método para buscar as estatísticas das respostas sem uma data específica
   getStatics() {
-    this.responseService.getStatisticsResponse(this.selectedAtividade,this.selectedFase).subscribe(
+    this.responseService.getStatisticsResponse(this.idApp,this.selectedAtividade,this.selectedFase).subscribe(
       // Callback de sucesso
       (questionStatistics: ResponseStatistics) => {
         // Atribui as estatísticas das respostas retornado pelo serviço à variável questionStatistics
@@ -173,7 +176,7 @@ export class SearchQuestionComponent implements OnInit {
   // Método para buscar as estatísticas da questão com uma data específica
   getStaticsWithDate() {
     if (this.startDate != null && this.endDate != null) {
-      this.responseService.getStatisticsResponseWithDate(this.selectedAtividade, this.selectedFase, this.startDate, this.endDate).subscribe(
+      this.responseService.getStatisticsResponseWithDate(this.idApp,this.selectedAtividade, this.selectedFase, this.startDate, this.endDate).subscribe(
         // Callback de sucesso
         (questionStatistics: ResponseStatistics) => {
           // Atribui as estatísticas da questão retornado pelo serviço à variável questionStatistics
