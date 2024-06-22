@@ -7,28 +7,39 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./autocomplete.component.css']
 })
 export class AutocompleteComponent {
-  @Input() options: string[] = []; 
+  @Input() options: string[] = [];
+  @Input() placeholder: string = "";
   @Output() selectedOptionChange = new EventEmitter<string>();
+  
   myControl = new FormControl('');
   filteredOptions: string[];
-  selectedOption: string = ''; 
 
-  // Adiciona uma propriedade value para acessar o valor do FormControl
-  get value(): string {
-    return this.myControl.value || ''; // Retorna uma string vazia se o valor for null
-  }
-  
   constructor() {
     this.filteredOptions = [];
+    this.myControl.valueChanges.subscribe(() => {
+      this.filter();
+    });
   }
 
   ngOnChanges() {
-    // Atualizar filteredOptions quando options mudar
     this.filteredOptions = this.options.slice();
   }
 
+  get value(): string {
+    return this.myControl.value || '';
+  }
+
   filter(): void {
-    const filterValue = this.myControl.value ? this.myControl.value.toLowerCase() : ''; // Trata o valor nulo
+    const filterValue = this.myControl.value ? this.myControl.value.toLowerCase() : '';
     this.filteredOptions = this.options.filter(o => o.toLowerCase().includes(filterValue));
+    
+    // Emitir evento com a opção selecionada (se houver apenas uma correspondência)
+    if (this.filteredOptions.length === 1) {
+      this.selectedOptionChange.emit(this.filteredOptions[0]);
+    }
+  }
+
+  optionSelected(option: string): void {
+    this.selectedOptionChange.emit(option);
   }
 }

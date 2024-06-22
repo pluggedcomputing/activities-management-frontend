@@ -63,4 +63,16 @@ export class ResponseService {
     return this.httpClient.get<UserStatistics>(`${this.API}/getStatisticsUser?userID=${userID}&idApp=${idApp}&startDate=${startDate}&endDate=${endDate}`);
   }
 
+  // Pega todas as aplicações com respostas cadastradas no backend/db
+  getApplications(){
+    return this.httpClient.get<string[]>(`${this.API}/getApplications`)
+  }
+
+  // Pega todos os usuários com respostas cadastradas na aplicação específica
+  getUsers(idApp: string){
+    return this.httpClient.get<string[]>(`${this.API}/getUsers?idApp=${idApp}`);
+  }
+
+  
+
 }

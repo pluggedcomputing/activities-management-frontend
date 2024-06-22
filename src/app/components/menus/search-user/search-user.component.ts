@@ -1,136 +1,153 @@
-// Importando dependências necessárias do Angular
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ResponseService } from 'src/app/service/response/response.service';
-import { UserService } from 'src/app/service/user/user.service';
 import { Response } from 'src/app/models/response.model';
 import { UserStatistics } from 'src/app/models/userStatistics';
 
-
-
-
-
 @Component({
-  selector: 'app-search-user', 
-  templateUrl: './search-user.component.html', 
+  selector: 'app-search-user',
+  templateUrl: './search-user.component.html',
   styleUrls: ['./search-user.component.css'],
 })
 export class SearchUserComponent implements OnInit {
+  
 
-  userID = "";
-  idApp = "WEB-BINARIOS 1.0";
-  userQuestions: any[] = [];
+  userID: string = "";
+  idApp: string = "";
+  userQuestions: Response[] = [];
   errorMessage: string = "";
-  statisticsUser: UserStatistics = new UserStatistics;
-  startDate = null;
-  endDate = null;
-  dataOn = false;
-  parentOptions: string[] = [];
+  statisticsUser: UserStatistics = new UserStatistics();
+  startDate: Date | null = null;
+  endDate: Date | null = null;
+  dataOn: boolean = false;
+  containerSearchOn: boolean = false;
+  usersOptions: string[] = [];
+  applicationsOptions: string[] = [];
+  isBloqueada: boolean = true;
+
   @ViewChild('autocompleteInput') autocompleteInput!: ElementRef;
 
-  constructor(private responseService: ResponseService, private userService: UserService) { }
+  constructor(
+    private responseService: ResponseService
+  ) {}
 
-  // Método do ciclo de vida do componente, chamado após a inicialização do componente
+  // Ciclo de vida do componente
   ngOnInit(): void {
-     this.userService.getUsers().subscribe(
-
-      (usersID: string[]) =>  {
-        if (usersID.length > 0){
-          this.parentOptions = usersID;
-          console.log("users: " + this.parentOptions);
-        }
-      },
-
-      (error) => {
-        console.error('Ocorreu um erro ao buscar os usuários no banco:', error);
-        this.errorMessage = ("Ocorreu um erro ao buscar os usuários no banco");
-        this.parentOptions = [];
-
-      }
-    );
-     
+    this.loadApplications();
   }
 
+  private verifyApp(app: string): boolean {
+    return this.applicationsOptions.includes(app);
+}
 
-  filterButtonClick(autocompleteValue: string) {
+  // Verifica se contém uma aplicação válida digitada
+  onClickHandler(idApp: string) {
+    if (this.verifyApp(idApp)) {
+      if (idApp != this.idApp){ // Faz uma verificação para que não fazer requisições descenessárias
+        this.getUsers(idApp); // Define a lista de Users que vai ser mostrada 
+        this.idApp = idApp; // Define o idApp que vai ser usado para pesquisar os Users
+        this.errorMessage = "";
+      }
+     
+    } else{
+       this.errorMessage = "Por favor, digite uma aplicação válida!"
+    }
+}
+
+  // Carregar as opções de aplicações disponíveis
+  private loadApplications(): void {
+    this.responseService.getApplications().subscribe(
+      (idApps: string[]) => {
+        if (idApps.length > 0) {
+          this.applicationsOptions = idApps;
+          console.log("Apps:", this.applicationsOptions);
+        }
+      },
+      (error) => {
+        console.error('Erro ao buscar as aplicações:', error);
+        this.errorMessage = "Ocorreu um erro ao buscar as aplicações no banco";
+        this.applicationsOptions = [];
+      }
+    );
+  }
+
+  // Carregar usuários com base no idApp selecionado
+  getUsers(idApp: string): void {
+    console.log("idApp:", idApp);
+    this.responseService.getUsers(idApp).subscribe(
+      (usersID: string[]) => {
+        if (usersID.length > 0) {
+          this.usersOptions = usersID;
+          console.log("Users:", this.usersOptions);
+          this.containerSearchOn = true;
+        }
+      },
+      (error) => {
+        console.error('Erro ao buscar os usuários:', error);
+        this.errorMessage = "Ocorreu um erro ao buscar os usuários no banco";
+        this.usersOptions = [];
+      }
+    );
+  }
+
+  // Acionar a pesquisa com base no valor do input autocomplete
+  filterButtonClick(autocompleteValue: string): void {
     console.log('Valor do autocomplete-input:', autocompleteValue);
     this.userID = autocompleteValue;
     this.searchUser();
-}
-  
+  }
 
-  // Método para realizar a pesquisa do usuário
-  searchUser() {
-    // Verifica se o ID do usuário está preenchido
-    if (this.userID.trim() !== "") {
-      // Verifica se há uma data específica
-      if (this.startDate != null && this.endDate != null) {
-        this.getQuestionOfUserWithDate();
-        this.getStaticsWithDate();
-
+  // Realizar a pesquisa do usuário
+  private searchUser(): void {
+    if (this.userID.trim()) {
+      if (this.startDate && this.endDate) {
+        this.getQuestionsOfUserWithDate();
+        this.getStatisticsWithDate();
       } else {
-        this.getQuestionOfUser();
-        this.getStatics();
-
+        this.getQuestionsOfUser();
+        this.getStatistics();
       }
     } else {
-      // Limpa a lista de perguntas do usuário e exibe a mensagem de erro se o ID do usuário não estiver preenchido
       this.userQuestions = [];
       this.errorMessage = "Por favor, insira um usuário válido.";
     }
   }
 
-  // Método para buscar as perguntas do usuário sem uma data específica
-  getQuestionOfUser() {
+  // Buscar perguntas do usuário sem data específica
+  private getQuestionsOfUser(): void {
     this.responseService.getQuestionsOfUser(this.userID, this.idApp).subscribe(
-      // Callback de sucesso
       (questions: Response[]) => {
-        // Verifica se há perguntas retornadas
         if (questions.length > 0) {
-          this.userQuestions = questions;  // Atribui as perguntas do usuário retornado pelo serviço à variável userQuestions
-          this.userQuestions.reverse(); // Coloca as respostas por ordem de respostas mais recente
-          console.log(this.userQuestions);
+          this.userQuestions = questions.reverse();
+          console.log("Questions:", this.userQuestions);
         } else {
-          // Limpa a lista de perguntas do usuário e exibe a mensagem de erro
           this.userQuestions = [];
           this.errorMessage = "Nenhuma pergunta encontrada para o ID de usuário especificado.";
-          console.log("Quantidade de responses: " + questions.length);
         }
-        
       },
-      // Callback de erro
       (error) => {
-        console.error('Ocorreu um erro ao buscar as perguntas do usuário:', error);
-        // Limpa a lista de perguntas do usuário e exibe a mensagem de erro
+        console.error('Erro ao buscar as perguntas do usuário:', error);
         this.userQuestions = [];
         this.errorMessage = "Ocorreu um erro ao buscar as perguntas do usuário. Por favor, tente novamente mais tarde.";
       }
     );
   }
 
-  // Método para buscar as perguntas do usuário com uma data específica
-  getQuestionOfUserWithDate() {
-    if (this.startDate != null && this.endDate != null) {
+  // Buscar perguntas do usuário com data específica
+  private getQuestionsOfUserWithDate(): void {
+    if (this.startDate && this.endDate) {
       this.responseService.getQuestionsOfUserWithDate(this.userID, this.idApp, this.startDate, this.endDate).subscribe(
-        // Callback de sucesso
         (questions: Response[]) => {
-          // Verifica se há perguntas retornadas
           if (questions.length > 0) {
-            // Atribui as perguntas do usuário retornado pelo serviço à variável userQuestions
-            this.userQuestions = questions;
-            // Limpa a mensagem de erro, caso exista
+            this.userQuestions = questions.reverse();
             this.errorMessage = "";
+            console.log("Questions with date:", this.userQuestions);
           } else {
-            // Limpa a lista de perguntas do usuário e exibe a mensagem de erro
             this.userQuestions = [];
             this.errorMessage = "Nenhuma pergunta encontrada para o ID de usuário especificado.";
           }
-          this.userQuestions.reverse(); // Coloca as respostas por ordem de respostas mais recente
-          console.log(this.userQuestions);
         },
-        // Callback de erro
         (error) => {
-          console.error('Ocorreu um erro ao buscar as perguntas do usuário:', error);
-          // Limpa a lista de perguntas do usuário e exibe a mensagem de erro
+          console.error('Erro ao buscar as perguntas do usuário com data:', error);
           this.userQuestions = [];
           this.errorMessage = "Ocorreu um erro ao buscar as perguntas do usuário. Por favor, tente novamente mais tarde.";
         }
@@ -138,46 +155,34 @@ export class SearchUserComponent implements OnInit {
     }
   }
 
-  // Método para buscar as estatísticas do usuário sem uma data específica
-  getStatics() {
+  // Buscar estatísticas do usuário sem data específica
+  private getStatistics(): void {
     this.responseService.getStatisticsUser(this.userID, this.idApp).subscribe(
-      // Callback de sucesso
-      (userStatistics: UserStatistics) => {
-        // Atribui as estatísticas do usuário retornado pelo serviço à variável statisticsUser
-        this.statisticsUser = userStatistics;
-        console.log(this.statisticsUser);
-        // Limpa a mensagem de erro
+      (statistics: UserStatistics) => {
+        this.statisticsUser = statistics;
+        console.log("Statistics:", this.statisticsUser);
         this.errorMessage = "";
       },
-      // Callback de erro
       (error) => {
-        console.error('Ocorreu um erro ao buscar as estatísticas do usuário:', error);
-        // Limpa as estatísticas do usuário em caso de erro
+        console.error('Erro ao buscar as estatísticas do usuário:', error);
         this.statisticsUser = new UserStatistics();
-        // Exibe a mensagem de erro
         this.errorMessage = "Ocorreu um erro ao buscar as estatísticas do usuário. Por favor, tente novamente mais tarde.";
       }
     );
   }
 
-  // Método para buscar as estatísticas do usuário com uma data específica
-  getStaticsWithDate() {
-    if (this.startDate != null && this.endDate != null) {
+  // Buscar estatísticas do usuário com data específica
+  private getStatisticsWithDate(): void {
+    if (this.startDate && this.endDate) {
       this.responseService.getStatisticsUserWithDate(this.userID, this.idApp, this.startDate, this.endDate).subscribe(
-        // Callback de sucesso
-        (userStatistics: UserStatistics) => {
-          // Atribui as estatísticas do usuário retornado pelo serviço à variável statisticsUser
-          this.statisticsUser = userStatistics;
-          console.log(this.statisticsUser);
-          // Limpa a mensagem de erro
+        (statistics: UserStatistics) => {
+          this.statisticsUser = statistics;
+          console.log("Statistics with date:", this.statisticsUser);
           this.errorMessage = "";
         },
-        // Callback de erro
         (error) => {
-          console.error('Ocorreu um erro ao buscar as estatísticas do usuário:', error);
-          // Limpa as estatísticas do usuário em caso de erro
+          console.error('Erro ao buscar as estatísticas do usuário com data:', error);
           this.statisticsUser = new UserStatistics();
-          // Exibe a mensagem de erro
           this.errorMessage = "Ocorreu um erro ao buscar as estatísticas do usuário. Por favor, tente novamente mais tarde.";
         }
       );

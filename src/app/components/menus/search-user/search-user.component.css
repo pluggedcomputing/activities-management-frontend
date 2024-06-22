@@ -58,6 +58,20 @@ h5{
   background-color: var(--light-blue);;
 }
 
+.container-input-app{
+  align-items: center;
+}
+
+.container-search-button{
+  width: 25%;
+  padding: 10px 0;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
 .date-label {
   margin-right: 20PX; 
 }
@@ -100,6 +114,8 @@ input[type="date"] {
 }
 
 .container-search {
+  align-items: center;
+  text-align: center;
   max-width: 800px;
   margin: 20px auto;
   padding: 20px;
