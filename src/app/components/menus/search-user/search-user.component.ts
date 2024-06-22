@@ -22,7 +22,7 @@ export class SearchUserComponent implements OnInit {
   containerSearchOn: boolean = false;
   usersOptions: string[] = [];
   applicationsOptions: string[] = [];
-  isBloqueada: boolean = true;
+
 
   @ViewChild('autocompleteInput') autocompleteInput!: ElementRef;
 
@@ -43,8 +43,8 @@ export class SearchUserComponent implements OnInit {
   onClickHandler(idApp: string) {
     if (this.verifyApp(idApp)) {
       if (idApp != this.idApp){ // Faz uma verificação para que não fazer requisições descenessárias
-        this.getUsers(idApp); // Define a lista de Users que vai ser mostrada 
         this.idApp = idApp; // Define o idApp que vai ser usado para pesquisar os Users
+        this.getUsers(idApp); // Define a lista de Users que vai ser mostrada 
         this.errorMessage = "";
       }
      

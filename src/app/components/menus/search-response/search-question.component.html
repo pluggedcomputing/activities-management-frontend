@@ -8,20 +8,28 @@
 
 <div class="container-search">
   <div class="content">
-    <mat-form-field>
-      <mat-label>Fase</mat-label>
-      <mat-select [(ngModel)]="selectedFase">
-        <mat-option *ngFor="let fase of allFases" [value]="fase.value">{{ fase.viewValue }}</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <br>
-    <br>
-    <mat-form-field>
-      <mat-label>Atividade</mat-label>
-      <mat-select [(ngModel)]="selectedAtividade">
-        <mat-option *ngFor="let atividade of allAtividades" [value]="atividade.value">{{ atividade.viewValue }}</mat-option>
-      </mat-select>
-    </mat-form-field>
+    <autocomplete-input 
+    #applicationInput 
+    class="autocomplete-input" 
+    [options]="applicationsOptions" 
+    [placeholder]="'Aplicação'">
+    </autocomplete-input>
+    <br><br>
+    <div class="content" (click)="onClickHandler(applicationInput.value)">
+      <autocomplete-input 
+      #phaseInput 
+      class="autocomplete-input" 
+      [options]="phaseOptions" 
+      [placeholder]="'Fase'">
+      </autocomplete-input>
+      <br><br>
+      <autocomplete-input 
+      #activityInput 
+      class="autocomplete-input" 
+      [options]="activityOptions" 
+      [placeholder]="'Atividade'">
+      </autocomplete-input>
+   </div>
   </div>
 
     <div (click)="dataOn=!dataOn" class="dataOn">
@@ -38,7 +46,7 @@
     </div>
     <br>
     
-    <button (click)="searchQuestion();" class="filter-button">Pesquisar</button>
+    <button (click)="searchQuestion(phaseInput.value, activityInput.value);" class="filter-button">Pesquisar</button>
     <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
   </div>
 

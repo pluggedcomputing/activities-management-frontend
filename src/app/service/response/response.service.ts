@@ -73,6 +73,13 @@ export class ResponseService {
     return this.httpClient.get<string[]>(`${this.API}/getUsers?idApp=${idApp}`);
   }
 
+  getPhases(idApp: string){
+    return this.httpClient.get<string[]>(`${this.API}/getPhases?idApp=${idApp}`);
+
+  }
   
+  getActivity(idApp: string){
+    return this.httpClient.get<string[]>(`${this.API}/getActivity?idApp=${idApp}`);
+  }
 
 }

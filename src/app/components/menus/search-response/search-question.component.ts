@@ -4,17 +4,9 @@ import { ResponseService } from 'src/app/service/response/response.service';
 import { Response } from 'src/app/models/response.model';
 import { ResponseStatistics } from 'src/app/models/responseStatistics';
 
-// Definindo interfaces para representar as fases e atividades
-interface fase {
-  value: string;
-  viewValue: string;
-}
-interface atividade {
-  value: string;
-  viewValue: string;
-}
 
-// Componente Angular para pesquisa de questões
+
+
 @Component({
   selector: 'app-search-question', // Seletor do componente
   templateUrl: './search-question.component.html', // Template HTML associado ao componente
@@ -23,7 +15,7 @@ interface atividade {
 export class SearchQuestionComponent implements OnInit {
 
   // Id da aplicação a ser pesquisada
-  idApp: string = "WEB-BINARIOS 1.0"
+  idApp: string = ""
 
   // Variáveis para armazenar datas de início e fim da pesquisa
   startDate = null;
@@ -45,33 +37,96 @@ export class SearchQuestionComponent implements OnInit {
   // Váriavel para mostrar ou não o menu de datas
   dataOn = false;
 
-  // Opções para as fases e atividades
-  allFases: fase[] = [
-    {value: "1", viewValue: 'Fase 1'},
-    {value: "2", viewValue: 'Fase 2'},
-    {value: "3", viewValue: 'Fase 3'},
-    {value: "4", viewValue: 'Fase 4'},
-    {value: "5", viewValue: 'Fase 5'},
-    {value: "6", viewValue: 'Fase 6'},
-    {value: "7", viewValue: 'Fase 7'},
-  ];
-  allAtividades: atividade[] = [
-    {value: "1", viewValue: 'Atividade 1'},
-    {value: "2", viewValue: 'Atividade 2'},
-    {value: "3", viewValue: 'Atividade 3'},
-    {value: "4", viewValue: 'Atividade 4'},
-    {value: "5", viewValue: 'Atividade 5'},
-    {value: "6", viewValue: 'Atividade 6'},
-    {value: "7", viewValue: 'Atividade 7'},
-  ];
+  phaseOptions: string[] = [];
+  applicationsOptions: string[] = [];
+  activityOptions: string[] = [];
+
 
   constructor(private responseService: ResponseService) { }
 
   ngOnInit(): void {
+    this.loadApplications();
   }
 
+
+  private verifyApp(app: string): boolean {
+    return this.applicationsOptions.includes(app);
+}
+
+  // Verifica se contém uma aplicação válida digitada
+  onClickHandler(idApp: string) {
+    if (this.verifyApp(idApp)) {
+      if (idApp != this.idApp){ // Faz uma verificação para que não fazer requisições descenessárias
+        this.idApp = idApp; // Define o idApp que vai ser usado para pesquisar as respostas 
+        this.getPhases(idApp); // Chama o método que trás as fases disponíveis
+        this.getActivity(idApp); // Chama o método que trás as atividades disponíveis
+        this.errorMessage = "";
+      }
+     
+    } else{
+       this.errorMessage = "Por favor, digite uma aplicação válida!"
+    }
+}
+
+  // Carrega as opções de aplicações disponíveis
+  private loadApplications(): void {
+    this.responseService.getApplications().subscribe(
+      (idApps: string[]) => {
+        if (idApps.length > 0) {
+          this.applicationsOptions = idApps;
+          console.log("Apps:", this.applicationsOptions);
+        }
+      },
+      (error) => {
+        console.error('Erro ao buscar as aplicações:', error);
+        this.errorMessage = "Ocorreu um erro ao buscar as aplicações no banco";
+        this.applicationsOptions = [];
+      }
+    );
+  }
+
+  // Carrega as fases do aplicativos que possuí algum cadastro
+  private getPhases(idApp: string): void {
+    this.responseService.getPhases(idApp).subscribe(
+      (phases: string[]) => {
+        if (phases.length > 0) {
+          this.phaseOptions = phases;
+          console.log("Phases:", this.phaseOptions);
+        }
+      },
+
+      (error) => {
+        console.error('Erro ao buscar as fases:', error);
+        this.errorMessage = "Ocorreu um erro ao buscar as fases no banco";
+        this.phaseOptions = [];
+      }
+    );
+  }
+
+  // Carrega as atividades do aplicativos que possuí algum cadastro
+  private getActivity(idApp: string): void {
+    this.responseService.getActivity(idApp).subscribe(
+      (activities: string[]) => {
+        if (activities.length > 0) {
+          this.activityOptions = activities;
+          console.log("Activities:", this.activityOptions);
+        }
+      },
+
+      (error) => {
+        console.error('Erro ao buscar as atividades:', error);
+        this.errorMessage = "Ocorreu um erro ao buscar as atividades no banco";
+        this.activityOptions = [];
+      }
+    );
+  }
+
+  
+
   // Método para realizar a pesquisa da questão
-  searchQuestion() {
+  searchQuestion(phase: string, activty: string) {
+    this.selectedAtividade = activty;
+    this.selectedFase = phase;
     // Verifica se há alguma fase ou atividade selecionada
     if (this.selectedAtividade.trim() !== "" || this.selectedFase.trim() !== "" ) {
       // Verifica se há uma data específica

@@ -6,6 +6,7 @@
 
 
 <div class="container-search">
+
   <div class="container-input-app">
     <autocomplete-input 
     #applicationInput 
@@ -13,9 +14,9 @@
     [options]="applicationsOptions" 
     [placeholder]="'Digite a aplicação que deseja pesquisar'">
     </autocomplete-input>
-
   </div>
-  <div class="content" (click)="onClickHandler(applicationInput.value)" [class.bloqueada]="isBloqueada">
+
+  <div class="content" (click)="onClickHandler(applicationInput.value)">
     <br>
     <autocomplete-input 
       #userInput 
