@@ -31,14 +31,15 @@ export class SearchQuestionComponent implements OnInit {
   questionSearch: any[] = [];
 
   // Variáveis para armazenar as fases e atividades selecionadas pelo usuário
-  selectedFase = "";
-  selectedAtividade = "";
+  selectedPhase = "";
+  selectedActivity = "";
 
   // Váriavel para mostrar ou não o menu de datas
   dataOn = false;
 
-  phaseOptions: string[] = [];
+  
   applicationsOptions: string[] = [];
+  phaseOptions: string[] = [];
   activityOptions: string[] = [];
 
 
@@ -52,19 +53,31 @@ export class SearchQuestionComponent implements OnInit {
   private verifyApp(app: string): boolean {
     return this.applicationsOptions.includes(app);
 }
+  private verifyPhase(phase: string): boolean {
+    return this.phaseOptions.includes(phase);
+  }
 
   // Verifica se contém uma aplicação válida digitada
-  onClickHandler(idApp: string) {
+  onClickHandler(idApp: string, phase: string) {
     if (this.verifyApp(idApp)) {
       if (idApp != this.idApp){ // Faz uma verificação para que não fazer requisições descenessárias
         this.idApp = idApp; // Define o idApp que vai ser usado para pesquisar as respostas 
         this.getPhases(idApp); // Chama o método que trás as fases disponíveis
-        this.getActivity(idApp); // Chama o método que trás as atividades disponíveis
         this.errorMessage = "";
       }
-     
+        
+      if (this.verifyPhase(phase)){
+        if (phase != this.selectedPhase) { // Faz uma verificação para que não fazer requisições descenessárias
+          this.selectedPhase = phase; // Define a fase que vai ser usado para pesquisar as atividades 
+          this.getActivity(idApp,phase); // Chama o método que trás as atividades disponíveis
+          this.errorMessage = "";
+        }      
+        } else {
+          this.errorMessage = "Por favor, digite uma Fase válida!";
+        }
+         
     } else{
-       this.errorMessage = "Por favor, digite uma aplicação válida!"
+       this.errorMessage = "Por favor, digite uma aplicação válida!";
     }
 }
 
@@ -104,8 +117,8 @@ export class SearchQuestionComponent implements OnInit {
   }
 
   // Carrega as atividades do aplicativos que possuí algum cadastro
-  private getActivity(idApp: string): void {
-    this.responseService.getActivity(idApp).subscribe(
+  private getActivity(idApp: string, phase: string): void {
+    this.responseService.getActivity(idApp,phase).subscribe(
       (activities: string[]) => {
         if (activities.length > 0) {
           this.activityOptions = activities;
@@ -125,10 +138,10 @@ export class SearchQuestionComponent implements OnInit {
 
   // Método para realizar a pesquisa da questão
   searchQuestion(phase: string, activty: string) {
-    this.selectedAtividade = activty;
-    this.selectedFase = phase;
+    this.selectedActivity = activty;
+    this.selectedPhase = phase;
     // Verifica se há alguma fase ou atividade selecionada
-    if (this.selectedAtividade.trim() !== "" || this.selectedFase.trim() !== "" ) {
+    if (this.selectedActivity.trim() !== "" || this.selectedPhase.trim() !== "" ) {
       // Verifica se há uma data específica
       if (this.startDate != null && this.endDate != null) {      
         this.getQuestionWithDate();
@@ -148,7 +161,7 @@ export class SearchQuestionComponent implements OnInit {
 
   // Método para buscar as respostas de uma questão sem uma data específica
   getQuestion() {
-    this.responseService.getSearchQuestion(this.idApp,this.selectedAtividade,this.selectedFase).subscribe(
+    this.responseService.getSearchQuestion(this.idApp,this.selectedActivity,this.selectedPhase).subscribe(
       // Callback de sucesso
       (questions: Response[]) => {
         // Verifica se há respostas retornadas
@@ -178,7 +191,7 @@ export class SearchQuestionComponent implements OnInit {
   // Método para buscar as respostas de uma questão com uma data específica
   getQuestionWithDate() {
     if (this.startDate != null && this.endDate != null) {
-      this.responseService.getSearchQuestionWithDate(this.idApp,this.selectedAtividade, this.selectedFase, this.startDate, this.endDate).subscribe(
+      this.responseService.getSearchQuestionWithDate(this.idApp,this.selectedActivity, this.selectedPhase, this.startDate, this.endDate).subscribe(
         // Callback de sucesso
         (questions: Response[]) => {
           // Verifica se há respostas retornadas
@@ -208,7 +221,7 @@ export class SearchQuestionComponent implements OnInit {
 
   // Método para buscar as estatísticas das respostas sem uma data específica
   getStatics() {
-    this.responseService.getStatisticsResponse(this.idApp,this.selectedAtividade,this.selectedFase).subscribe(
+    this.responseService.getStatisticsResponse(this.idApp,this.selectedActivity,this.selectedPhase).subscribe(
       // Callback de sucesso
       (questionStatistics: ResponseStatistics) => {
         // Atribui as estatísticas das respostas retornado pelo serviço à variável questionStatistics
@@ -231,7 +244,7 @@ export class SearchQuestionComponent implements OnInit {
   // Método para buscar as estatísticas da questão com uma data específica
   getStaticsWithDate() {
     if (this.startDate != null && this.endDate != null) {
-      this.responseService.getStatisticsResponseWithDate(this.idApp,this.selectedAtividade, this.selectedFase, this.startDate, this.endDate).subscribe(
+      this.responseService.getStatisticsResponseWithDate(this.idApp,this.selectedActivity, this.selectedPhase, this.startDate, this.endDate).subscribe(
         // Callback de sucesso
         (questionStatistics: ResponseStatistics) => {
           // Atribui as estatísticas da questão retornado pelo serviço à variável questionStatistics

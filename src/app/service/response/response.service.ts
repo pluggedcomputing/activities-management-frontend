@@ -78,8 +78,8 @@ export class ResponseService {
 
   }
   
-  getActivity(idApp: string){
-    return this.httpClient.get<string[]>(`${this.API}/getActivity?idApp=${idApp}`);
+  getActivity(idApp: string, phase: string){
+    return this.httpClient.get<string[]>(`${this.API}/getActivity?idApp=${idApp}&phase=${phase}`);
   }
 
 }
