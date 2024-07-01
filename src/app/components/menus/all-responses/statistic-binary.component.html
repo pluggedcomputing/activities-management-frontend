@@ -6,18 +6,19 @@
 
 <div class="container-search">
   <div class="content">
-    <div class="div-data">
-      <h5 for="filter-select">Filtrar por:</h5>
-    </div>
-    <select id="filter-select" [(ngModel)]="selectedOrder" >
-      <option value="dateResponse">Data de Envio</option>
-      <option value="idApp">Aplicação</option>
-      <option value="phase">Fase</option>
-      <option value="activity">Atividade</option>
-      <option value="userID">Usuário</option>
-    </select>
+    <autocomplete-input 
+    #applicationInput 
+    class="autocomplete-input" 
+    [options]="applicationsOptions" 
+    [placeholder]="'Digite a aplicação que deseja pesquisar'">
+    </autocomplete-input>
 
-    <div *ngIf="selectedOrder === 'dateResponse' "  class="date-filter-container">  
+    <div (click)="dataOn = !dataOn" class="dataOn">
+      <h4>Filtrar respostas por período</h4>    
+      <mat-icon>date_range</mat-icon>
+    </div>
+    
+    <div *ngIf="dataOn" class="date-filter-container">  
       <h5>Data Inicial:</h5>
       <input type="date" [(ngModel)]="startDate" placeholder="Data inicial">
       <br>
@@ -26,18 +27,18 @@
     </div>
     <br>
     
-    <input *ngIf=" selectedOrder != 'dateResponse' " type="text" [(ngModel)]="searchTerm" placeholder="Pesquisar...">
-    
-    <button (click)="filterQuestions()" class="filter-button">Filtrar</button>
+    <button (click)="searchResponses(applicationInput.value)" class="filter-button">Pesquisar</button>
   </div>
 </div>
 
 
 
-<div *ngIf="questions.length === 0" class="warning-noserver">
+<div *ngIf="errorMessageOn" class="warning-noserver">
   <div *ngIf="errorMessage" class="error-message"><h2>{{ errorMessage }}</h2></div>
   <mat-progress-bar mode="indeterminate"></mat-progress-bar>
 </div>
+
+
 
 <div *ngIf="questions.length > 0" class="container-responses">
   <div class="content">
@@ -56,7 +57,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let question of filteredQuestions" class="answer-item">
+        <tr *ngFor="let question of questions" class="answer-item">
           <td>{{ question.idApp }}</td>
           <td>{{ question.phase }}</td>
           <td>{{ question.activity }}</td>

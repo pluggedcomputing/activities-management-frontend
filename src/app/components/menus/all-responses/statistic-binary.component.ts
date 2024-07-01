@@ -11,62 +11,96 @@ export class StatisticBinaryComponent implements OnInit {
   filteredQuestions: any[] = [];
   searchTerm = '';
   selectedOrder: string = 'phaseActivity';
-  dataOn = true;
+  dataOn: boolean = false;
   startDate: Date | null = null;
   endDate: Date | null = null;
+  errorMessageOn: boolean = false;
   errorMessage: string = "";
   idApp: string = "WEB-BINARIOS 1.0"
+  applicationsOptions: string[] = [];
 
   constructor(private responseService: ResponseService) { }
 
   ngOnInit(): void {
-    this.loadAllQuestions();
+    this.loadApplications();
   }
 
-  loadAllQuestions(): void {
+  private loadApplications(): void {
+    this.errorMessageOn = true;
+    this.errorMessage = "Carregando aplicações..."
+    this.responseService.getApplications().subscribe(
+      (idApps: string[]) => {
+        if (idApps.length > 0) {
+          this.applicationsOptions = idApps;
+          console.log("Apps:", this.applicationsOptions);
+          this.errorMessageOn = false;
+        }
+      },
+      (error) => {
+        this.errorMessageOn = true;
+        console.error('Erro ao buscar as aplicações:', error);
+        this.errorMessage = "Ocorreu um erro ao buscar as aplicações no banco";
+        this.applicationsOptions = [];
+      }
+    );
+  }
+
+  searchResponses(idApp: string){
+    if (this.startDate && this.endDate != null){
+      this.loadAllQUestionsWithDate(idApp);
+    } else {
+    this.loadAllQuestions(idApp);
+    }
+  }
+
+  private loadAllQUestionsWithDate(idApp: string): void {
+    this.idApp = idApp;
+    this.errorMessageOn = true;
+    this.errorMessage = "Carregando respostas..."
+    if (this.startDate && this.endDate != null){
+      this.responseService.getAllQuestionWithDate(this.idApp, this.startDate,this.endDate).subscribe(
+        (data: any) => {
+          this.questions = data;
+          this.questions.reverse();
+          this.errorMessageOn = false;
+          if (this.questions.length == 0){
+            this.errorMessageOn = true;
+            this.errorMessage = "Nenhuma resposta encontrada!"
+          }
+        },
+        error => {
+          this.errorMessageOn = true;
+          console.error('erro ao buscar detalhes da atividade:', error);
+          this.errorMessage = "Erro ao carregar respostas!"
+        }
+      );
+    }
+   
+  }
+
+  private loadAllQuestions(idApp: string): void {
+    this.idApp = idApp;
+    this.errorMessageOn = true;
     this.errorMessage = "Carregando respostas..."
     this.responseService.getAllQuestion(this.idApp).subscribe(
       (data: any) => {
         this.questions = data;
-        this.filterQuestions();
+        this.questions.reverse();
+        this.errorMessageOn = false;
+        if (this.questions.length == 0){
+          this.errorMessageOn = true;
+          this.errorMessage = "Nenhuma resposta encontrada!"
+        }
       },
       error => {
+        this.errorMessageOn = true;
         console.error('erro ao buscar detalhes da atividade:', error);
         this.errorMessage = "Erro ao carregar respostas!"
       }
     );
   }
 
-  filterQuestions(): void {
-    if (this.selectedOrder && this.searchTerm.trim() !== '') {
-      this.filteredQuestions = this.questions.filter(question =>
-        question[this.selectedOrder] &&
-        question[this.selectedOrder].toString().toLowerCase().includes(this.searchTerm.toLowerCase())
-      );
-    } else {
-      this.filteredQuestions = this.questions.slice();
-    }
+
   
-    if (this.selectedOrder === "dateResponse" && this.startDate !== null && this.endDate !== null) {
-      this.responseService.getAllQuestionWithDate(this.idApp, this.startDate, this.endDate).subscribe(
-        (data: any) => {
-          this.questions = data;
-          // Aplicar novamente o filtro de searchTerm após atualizar as questões
-          if (this.searchTerm.trim() !== '') {
-            this.filteredQuestions = this.questions.filter(question =>
-              question[this.selectedOrder] &&
-              question[this.selectedOrder].toString().toLowerCase().includes(this.searchTerm.toLowerCase())
-            );
-          } else {
-            this.filteredQuestions = this.questions.slice();
-          }
-        },
-        error => {
-          console.error('Erro ao buscar detalhes da atividade:', error);
-          this.errorMessage = "Erro ao carregar respostas!"
-        }
-      );
-    }
-    this.filteredQuestions.reverse(); // Coloca as respostas por ordem de respostas mais recente
-  }
+
 }
