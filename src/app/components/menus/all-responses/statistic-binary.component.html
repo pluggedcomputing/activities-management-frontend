@@ -40,6 +40,30 @@
 
 
 
+<div *ngIf="questions.length > 0" class="container-user-statistics">
+  <div class="statistics-item">
+    <h2>Total de Respostas</h2>
+    <div class="statistics-value">{{ responseStatistics.quantityAllAnswers }}</div>
+  </div>
+  <div class="statistics-item">
+    <h2>Total de Respostas Corretas</h2>
+    <div class="statistics-value">{{ responseStatistics.quantityCorrectsAnswers }}</div>
+  </div>
+  <div class="statistics-item">
+    <h2>Total de Respostas Incorretas</h2>
+    <div class="statistics-value">{{ responseStatistics.quantityWrongsAnswers }}</div>
+  </div>
+  <div class="statistics-item">
+    <h2>Porcentagem de Respostas Corretas</h2>
+    <div class="statistics-value">{{ responseStatistics.percentageCorrectsAnswers.toFixed(1) }}%</div>
+  </div>
+  <div class="statistics-item">
+    <h2>Porcentagem de Respostas Incorretas</h2>
+    <div class="statistics-value">{{ responseStatistics.percentageWrongsAnswers.toFixed(1) }}%</div>
+  </div>
+</div>
+
+
 <div *ngIf="questions.length > 0" class="container-responses">
   <div class="content">
     <table class="answers-table">

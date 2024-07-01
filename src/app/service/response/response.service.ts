@@ -33,15 +33,16 @@ export class ResponseService {
     return this.httpClient.get<Response[]>(`${this.API}/getSearchResponse?idApp=${idApp}&phase=${phase}&activity=${activity}&startDate=${startDate}&endDate=${endDate}`)
   }
 
-  // Pega todas as estastísticas de uma questão específica
+  // Pega todas as estatísticas de uma questão específica
   getStatisticsResponse(idApp: string, activity: string, phase: string){
     return this.httpClient.get<ResponseStatistics>(`${this.API}/getStatisticsResponse?idApp=${idApp}&phase=${phase}&activity=${activity}`)
   }
 
-  // Pega todas as estastísticas de uma questão específica em uma data específica
+  // Pega todas as estatísticas de uma questão específica em uma data específica
   getStatisticsResponseWithDate(idApp: string, activity: string, phase: string, startDate: Date, endDate: Date){
     return this.httpClient.get<ResponseStatistics>(`${this.API}/getStatisticsResponse?idApp=${idApp}&phase=${phase}&activity=${activity}&startDate=${startDate}&endDate=${endDate}`)
   }
+  
 
   // Pega todas as questões de um usuário específico.
   getQuestionsOfUser(userID: string, idApp: string) {
@@ -53,14 +54,24 @@ export class ResponseService {
     return this.httpClient.get<Response[]>(`${this.API}/getUniqueUser?userID=${userID}&idApp=${idApp}&startDate=${startDate}&endDate=${endDate}`);
   }
   
-  // Pega todas as estastísticas de um usuário específico.
+  // Pega todas as estatísticas de um usuário específico.
   getStatisticsUser(userID: string, idApp: string){
     return this.httpClient.get<UserStatistics>(`${this.API}/getStatisticsUser?userID=${userID}&idApp=${idApp}`);
   }
     
-  // Pega todas as estastísticas de um usuário específico em uma data específica.
+  // Pega todas as estatísticas de um usuário específico em uma data específica.
   getStatisticsUserWithDate(userID: string, idApp: string, startDate: Date, endDate: Date){
     return this.httpClient.get<UserStatistics>(`${this.API}/getStatisticsUser?userID=${userID}&idApp=${idApp}&startDate=${startDate}&endDate=${endDate}`);
+  }
+
+  // Pega as estatísticas de todas as respostas
+  getStatisticsAllResponse(idApp: string){
+    return this.httpClient.get<ResponseStatistics>(`${this.API}/getStatisticsAllResponse?idApp=${idApp}`);
+  }
+
+   // Pega as estatísticas de todas as respostas com data específica
+   getStatisticsAllResponseWithDate(idApp: string, startDate: Date, endDate: Date){
+    return this.httpClient.get<ResponseStatistics>(`${this.API}/getStatisticsAllResponse?idApp=${idApp}&startDate=${startDate}&endDate=${endDate}`);
   }
 
   // Pega todas as aplicações com respostas cadastradas no backend/db
