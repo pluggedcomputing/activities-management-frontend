@@ -8,6 +8,7 @@ import { ResponseStatistics } from 'src/app/models/responseStatistics';
   styleUrls: ['./statistic-binary.component.css']
 })
 export class StatisticBinaryComponent implements OnInit {
+
   questions: any[] = [];
   filteredQuestions: any[] = [];
   searchTerm = '';
@@ -17,7 +18,7 @@ export class StatisticBinaryComponent implements OnInit {
   endDate: Date | null = null;
   errorMessageOn: boolean = false;
   errorMessage: string = "";
-  idApp: string = "WEB-BINARIOS 1.0"
+  idApp: string = "WEB-BINARIOS 1.0";
   applicationsOptions: string[] = [];
   responseStatistics: ResponseStatistics = new ResponseStatistics();
 
@@ -27,21 +28,20 @@ export class StatisticBinaryComponent implements OnInit {
     this.loadApplications();
   }
 
-
-
-  searchResponses(idApp: string){
-    if (this.startDate && this.endDate != null){
-      this.loadAllQUestionsWithDate(idApp);
-      this.getStaticsWithDate();
+  searchResponses(idApp: string): void {
+    if (this.startDate != null && this.endDate != null) {
+      this.loadAllResponsesWithDate(idApp);
+      this.getStatisticsWithDate();
     } else {
-      this.loadAllQuestions(idApp);
-      this.getStatics();
+      this.loadAllResponses(idApp);
+      this.getStatistics();
     }
   }
 
   private loadApplications(): void {
+    this.errorMessage = "Carregando aplicações...";
     this.errorMessageOn = true;
-    this.errorMessage = "Carregando aplicações..."
+    
     this.responseService.getApplications().subscribe(
       (idApps: string[]) => {
         if (idApps.length > 0) {
@@ -51,24 +51,22 @@ export class StatisticBinaryComponent implements OnInit {
         }
       },
       (error) => {
-        this.errorMessageOn = true;
         console.error('Erro ao buscar as aplicações:', error);
         this.errorMessage = "Ocorreu um erro ao buscar as aplicações no banco";
+        this.errorMessageOn = true;
         this.applicationsOptions = [];
       }
     );
   }
 
-
-  private getStatics() {
+  private getStatistics(): void {
     this.responseService.getStatisticsAllResponse(this.idApp).subscribe(
       (questionStatistics: ResponseStatistics) => {
         this.responseStatistics = questionStatistics;
         console.log(this.responseStatistics);
-        this.errorMessageOn = false;
         this.errorMessage = "";
+        this.errorMessageOn = false;
       },
-
       (error) => {
         console.error('Ocorreu um erro ao buscar as estatísticas das respostas:', error);
         this.responseStatistics = new ResponseStatistics();
@@ -78,7 +76,7 @@ export class StatisticBinaryComponent implements OnInit {
     );
   }
  
-  private getStaticsWithDate() {
+  private getStatisticsWithDate(): void {
     if (this.startDate != null && this.endDate != null) {
       this.responseService.getStatisticsAllResponseWithDate(this.idApp, this.startDate, this.endDate).subscribe(
         (questionStatistics: ResponseStatistics) => {
@@ -97,54 +95,54 @@ export class StatisticBinaryComponent implements OnInit {
     }
   }
 
-  private loadAllQUestionsWithDate(idApp: string): void {
+  private loadAllResponsesWithDate(idApp: string): void {
     this.idApp = idApp;
+    this.errorMessage = "Carregando respostas...";
     this.errorMessageOn = true;
-    this.errorMessage = "Carregando respostas..."
-    if (this.startDate && this.endDate != null){
-      this.responseService.getAllQuestionWithDate(this.idApp, this.startDate,this.endDate).subscribe(
+    
+    if (this.startDate != null && this.endDate != null) {
+      this.responseService.getAllQuestionWithDate(this.idApp, this.startDate, this.endDate).subscribe(
         (data: any) => {
           this.questions = data;
           this.questions.reverse();
           this.errorMessageOn = false;
-          if (this.questions.length == 0){
+          if (this.questions.length == 0) {
+            this.errorMessage = "Nenhuma resposta encontrada!";
             this.errorMessageOn = true;
-            this.errorMessage = "Nenhuma resposta encontrada!"
           }
         },
         error => {
+          console.error('Erro ao buscar detalhes da atividade:', error);
+          this.errorMessage = "Erro ao carregar respostas!";
           this.errorMessageOn = true;
-          console.error('erro ao buscar detalhes da atividade:', error);
-          this.errorMessage = "Erro ao carregar respostas!"
         }
       );
+    } else {
+      this.errorMessage = "Datas inválidas!";
+      this.errorMessageOn = true;
     }
-   
   }
 
-  private loadAllQuestions(idApp: string): void {
+  private loadAllResponses(idApp: string): void {
     this.idApp = idApp;
+    this.errorMessage = "Carregando respostas...";
     this.errorMessageOn = true;
-    this.errorMessage = "Carregando respostas..."
+    
     this.responseService.getAllQuestion(this.idApp).subscribe(
       (data: any) => {
         this.questions = data;
         this.questions.reverse();
         this.errorMessageOn = false;
-        if (this.questions.length == 0){
+        if (this.questions.length == 0) {
+          this.errorMessage = "Nenhuma resposta encontrada!";
           this.errorMessageOn = true;
-          this.errorMessage = "Nenhuma resposta encontrada!"
         }
       },
       error => {
+        console.error('Erro ao buscar detalhes da atividade:', error);
+        this.errorMessage = "Erro ao carregar respostas!";
         this.errorMessageOn = true;
-        console.error('erro ao buscar detalhes da atividade:', error);
-        this.errorMessage = "Erro ao carregar respostas!"
       }
     );
   }
-
-
-  
-
 }
