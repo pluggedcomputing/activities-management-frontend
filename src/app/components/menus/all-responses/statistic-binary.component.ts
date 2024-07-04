@@ -22,7 +22,7 @@ export class StatisticBinaryComponent implements OnInit {
 
   // Variáveis de paginação
   page: number = 0;
-  size: number = 10;
+  size: number = 30;
   totalPages: number = 0;
 
   constructor(private responseService: ResponseService) { }

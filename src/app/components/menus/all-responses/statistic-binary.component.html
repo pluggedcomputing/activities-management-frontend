@@ -36,11 +36,6 @@
   <mat-progress-bar mode="indeterminate"></mat-progress-bar>
 </div>
 
-<div class="pagination-controls" *ngIf="responses.length > 0">
-  <button (click)="previousPage()" [disabled]="page === 0">Anterior</button>
-  <span>Página {{ page + 1 }} de {{ totalPages }}</span>
-  <button (click)="nextPage()" [disabled]="page === totalPages - 1">Próxima</button>
-</div>
 
 <div *ngIf="responses.length > 0" class="container-user-statistics">
   <div class="statistics-item">
@@ -97,4 +92,11 @@
     </table>
    
   </div>
+  <div class="pagination-controls" *ngIf="responses.length > 0">
+    <span>Página {{ page + 1 }} de {{ totalPages }}</span>
+    <br>
+    <button (click)="previousPage()" [disabled]="page === 0">Anterior</button>
+    <button (click)="nextPage()" [disabled]="page === totalPages - 1">Próxima</button>  
+  </div>
+  
 </div>
