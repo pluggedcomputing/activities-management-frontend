@@ -85,6 +85,10 @@ select {
   border-radius: 5px;
 }
 
+.pagination-controls{
+  text-align: center;
+}
+
 .statistics-item {
   text-align: center;
   flex-basis: 18%;

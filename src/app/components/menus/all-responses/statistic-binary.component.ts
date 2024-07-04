@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ResponseService } from 'src/app/service/response/response.service';
 import { ResponseStatistics } from 'src/app/models/responseStatistics';
+import { Response } from 'src/app/models/response.model';
 
 @Component({
   selector: 'app-statistic-binary',
@@ -9,10 +10,7 @@ import { ResponseStatistics } from 'src/app/models/responseStatistics';
 })
 export class StatisticBinaryComponent implements OnInit {
 
-  questions: any[] = [];
-  filteredQuestions: any[] = [];
-  searchTerm = '';
-  selectedOrder: string = 'phaseActivity';
+  responses: Response[] = [];
   dataOn: boolean = false;
   startDate: Date | null = null;
   endDate: Date | null = null;
@@ -21,6 +19,11 @@ export class StatisticBinaryComponent implements OnInit {
   idApp: string = "WEB-BINARIOS 1.0";
   applicationsOptions: string[] = [];
   responseStatistics: ResponseStatistics = new ResponseStatistics();
+
+  // Variáveis de paginação
+  page: number = 0;
+  size: number = 10;
+  totalPages: number = 0;
 
   constructor(private responseService: ResponseService) { }
 
@@ -75,7 +78,7 @@ export class StatisticBinaryComponent implements OnInit {
       }
     );
   }
- 
+
   private getStatisticsWithDate(): void {
     if (this.startDate != null && this.endDate != null) {
       this.responseService.getStatisticsAllResponseWithDate(this.idApp, this.startDate, this.endDate).subscribe(
@@ -101,13 +104,18 @@ export class StatisticBinaryComponent implements OnInit {
     this.errorMessageOn = true;
     
     if (this.startDate != null && this.endDate != null) {
-      this.responseService.getAllQuestionWithDate(this.idApp, this.startDate, this.endDate).subscribe(
+      this.responseService.getAllQuestionWithDate(this.idApp, this.startDate, this.endDate, this.page, this.size).subscribe(
         (data: any) => {
-          this.questions = data;
-          this.questions.reverse();
-          this.errorMessageOn = false;
-          if (this.questions.length == 0) {
-            this.errorMessage = "Nenhuma resposta encontrada!";
+          if (data && data.content) {
+            this.responses = data.content;
+            this.totalPages = data.totalPages;
+            this.errorMessageOn = false;
+            if (this.responses.length === 0) {
+              this.errorMessage = "Nenhuma resposta encontrada!";
+              this.errorMessageOn = true;
+            }
+          } else {
+            this.errorMessage = "Nenhum dado retornado!";
             this.errorMessageOn = true;
           }
         },
@@ -122,19 +130,26 @@ export class StatisticBinaryComponent implements OnInit {
       this.errorMessageOn = true;
     }
   }
+  
+
 
   private loadAllResponses(idApp: string): void {
     this.idApp = idApp;
     this.errorMessage = "Carregando respostas...";
     this.errorMessageOn = true;
     
-    this.responseService.getAllQuestion(this.idApp).subscribe(
+    this.responseService.getAllQuestion(this.idApp, this.page, this.size).subscribe(
       (data: any) => {
-        this.questions = data;
-        this.questions.reverse();
-        this.errorMessageOn = false;
-        if (this.questions.length == 0) {
-          this.errorMessage = "Nenhuma resposta encontrada!";
+        if (data && data.content) {
+          this.responses = data.content;
+          this.totalPages = data.totalPages;
+          this.errorMessageOn = false;
+          if (this.responses.length === 0) {
+            this.errorMessage = "Nenhuma resposta encontrada!";
+            this.errorMessageOn = true;
+          }
+        } else {
+          this.errorMessage = "Nenhum dado retornado!";
           this.errorMessageOn = true;
         }
       },
@@ -144,5 +159,20 @@ export class StatisticBinaryComponent implements OnInit {
         this.errorMessageOn = true;
       }
     );
+  }
+  
+
+  nextPage(): void {
+    if (this.page < this.totalPages - 1) {
+      this.page++;
+      this.searchResponses(this.idApp);
+    }
+  }
+
+  previousPage(): void {
+    if (this.page > 0) {
+      this.page--;
+      this.searchResponses(this.idApp);
+    }
   }
 }

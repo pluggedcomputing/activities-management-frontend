@@ -4,6 +4,7 @@ import { Response } from 'src/app/models/response.model';
 import { ResponseStatistics } from 'src/app/models/responseStatistics';
 import { UserStatistics } from 'src/app/models/userStatistics';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -13,14 +14,14 @@ export class ResponseService {
 
   constructor(private httpClient: HttpClient) { }
 
-  // Pega todas as respostas.
-  getAllQuestion(idApp: string){
-    return this.httpClient.get(`${this.API}?idApp=${idApp}`);
+  // Pega todas as respostas com paginação.
+  getAllQuestion(idApp: string, page: number, size: number){
+    return this.httpClient.get<Response[]>(`${this.API}?idApp=${idApp}&page=${page}&size=${size}`);
   }
 
-   // Pega todas as respostas com datas específicas.
-   getAllQuestionWithDate(idApp: string, startDate: Date, endDate: Date){
-    return this.httpClient.get<Response[]>(`${this.API}?idApp=${idApp}&startDate=${startDate}&endDate=${endDate}`);
+  // Pega todas as respostas com datas específicas e paginação.
+  getAllQuestionWithDate(idApp: string, startDate: Date, endDate: Date, page: number, size: number){
+    return this.httpClient.get<Response[]>(`${this.API}?idApp=${idApp}&startDate=${startDate}&endDate=${endDate}&page=${page}&size=${size}`);
   }
 
   // Pega todas as respostas de uma questão específica

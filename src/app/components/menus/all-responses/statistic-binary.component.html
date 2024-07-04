@@ -7,10 +7,10 @@
 <div class="container-search">
   <div class="content">
     <autocomplete-input 
-    #applicationInput 
-    class="autocomplete-input" 
-    [options]="applicationsOptions" 
-    [placeholder]="'Digite a aplicação que deseja pesquisar'">
+      #applicationInput 
+      class="autocomplete-input" 
+      [options]="applicationsOptions" 
+      [placeholder]="'Digite a aplicação que deseja pesquisar'">
     </autocomplete-input>
 
     <div (click)="dataOn = !dataOn" class="dataOn">
@@ -31,16 +31,18 @@
   </div>
 </div>
 
-
-
 <div *ngIf="errorMessageOn" class="warning-noserver">
   <div *ngIf="errorMessage" class="error-message"><h2>{{ errorMessage }}</h2></div>
   <mat-progress-bar mode="indeterminate"></mat-progress-bar>
 </div>
 
+<div class="pagination-controls" *ngIf="responses.length > 0">
+  <button (click)="previousPage()" [disabled]="page === 0">Anterior</button>
+  <span>Página {{ page + 1 }} de {{ totalPages }}</span>
+  <button (click)="nextPage()" [disabled]="page === totalPages - 1">Próxima</button>
+</div>
 
-
-<div *ngIf="questions.length > 0" class="container-user-statistics">
+<div *ngIf="responses.length > 0" class="container-user-statistics">
   <div class="statistics-item">
     <h2>Total de Respostas</h2>
     <div class="statistics-value">{{ responseStatistics.quantityAllAnswers }}</div>
@@ -63,8 +65,7 @@
   </div>
 </div>
 
-
-<div *ngIf="questions.length > 0" class="container-responses">
+<div *ngIf="responses.length > 0" class="container-responses">
   <div class="content">
     <table class="answers-table">
       <thead>
@@ -81,18 +82,19 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let question of questions" class="answer-item">
-          <td>{{ question.idApp }}</td>
-          <td>{{ question.phase }}</td>
-          <td>{{ question.activity }}</td>
-          <td>{{ question.userID }}</td>
-          <td>{{ question.userResponse }}</td>
-          <td>{{ question.expectedResponse }}</td>
-          <td>{{ question.isCorrect ? 'Sim' : 'Não' }}</td>
-          <td>{{ question.dateResponse | date:'dd/MM/yyyy' }}</td>
-          <td>{{ question.typeOfQuestion }}</td>
+        <tr *ngFor="let response of responses" class="answer-item">
+          <td>{{ response.idApp }}</td>
+          <td>{{ response.phase }}</td>
+          <td>{{ response.activity }}</td>
+          <td>{{ response.userID }}</td>
+          <td>{{ response.userResponse }}</td>
+          <td>{{ response.expectedResponse }}</td>
+          <td>{{ response.isCorrect ? 'Sim' : 'Não' }}</td>
+          <td>{{ response.dateResponse | date:'dd/MM/yyyy' }}</td>
+          <td>{{ response.typeOfQuestion }}</td>
         </tr>
       </tbody>
     </table>
+   
   </div>
 </div>
