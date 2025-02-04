@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  apiUrlResponse: "https://activities.a4s.dev.br/api/response",
+  apiUrlUser: "https://activities.a4s.dev.br/api/user"
 };
 
 /*
